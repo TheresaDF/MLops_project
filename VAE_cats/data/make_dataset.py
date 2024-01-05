@@ -23,4 +23,3 @@ for i, filename in tqdm(enumerate(raw_files)):
 # save in correct format 
 all_images = torch.from_numpy(all_images)
 torch.save(all_images, PROCESSED_PATH)
-
