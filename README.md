@@ -2,6 +2,9 @@
 
 Generate cats using a VAE
 
+## Project description
+cats cats cats 
+
 ## Project structure
 
 The directory structure of the project looks like this:
