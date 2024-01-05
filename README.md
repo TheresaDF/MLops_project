@@ -3,7 +3,14 @@
 Generate cats using a VAE
 
 ## Project description
-cats cats cats 
+Our goal of this project is to brighten the world with more cat pictures, by using variational auto encoders (VAE) to generate new images of cats. As our goal of the project primarily relates to generation it motivates the use of VAE rather than ordinary auto encoders. 
+
+To obtain this, we will seek inspiration from various frameworks such as pre-trained models from HuggingFace and high-level training frameworks.  
+
+The dataset used is provided by the DTU course, 02502 Image Analysis, which contains 1706 RGB images of cats. The data has already been preprocessed in this course, with the use of landmarks, to a standardized size of (360 x 360 x 3), and to center the cat faces. We will likely preprocess the images further as we see fit, to adjust for upcoming challenges. The original dataset is from Kaggle and can be found [here](https://www.kaggle.com/datasets/crawford/cat-dataset). 
+
+As previously mentioned, a variational auto-encoder model will be used, to generate cat images. During this project, we will experiment with different numbers of hidden layers and neurons in the layers to obtain various models. 
+
 
 ## Project structure
 
