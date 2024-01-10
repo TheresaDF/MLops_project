@@ -31,18 +31,13 @@ class Model(LightningModule):
         h_ = self.encode(x)
         h_ = h_.view(-1, 512)
 
-        print(f"shape of h_ = {h_.shape}")
-
         self.mean = self.FC_mean(h_)
         self.log_var = self.FC_var(h_)        
         std = torch.exp(0.5 * self.log_var)
         z = self.reparam(self.mean, std)
 
         z = z.view(-1, 8, 2, 2)
-        print(f"shape of z = {z.shape}")
         x_hat = self.decode(z)
-
-        print(f"shaoe of hat {x_hat.shape}")
 
         return x_hat
 
