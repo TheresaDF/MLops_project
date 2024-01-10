@@ -5,11 +5,12 @@ from skimage.io import imread
 import torch 
 import numpy as np 
 from tqdm import tqdm 
+from matplotlib import pyplot as plt 
 
 # # # Declare constants # # # 
 RAW_PATH = "data/raw"
 PROCESSED_PATH = "data/processed/cats.pt"
-OUTPUT_SIZE = (256, 256, 3)
+OUTPUT_SIZE = (128, 128, 3)
 
 # get all filenames 
 raw_files = glob.glob(os.path.join(RAW_PATH, '*jpg'))

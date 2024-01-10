@@ -1,67 +1,46 @@
 import torch
 from torch import nn 
-
-class Encoder(nn.Module):
-    """Gaussian MLP Encoder."""
-
-    def __init__(self, input_dim, hidden_dim, latent_dim):
-        super(Encoder, self).__init__()
-
-        self.FC_input = nn.Linear(input_dim, hidden_dim)
-        self.FC_mean = nn.Linear(hidden_dim, latent_dim)
-        self.FC_var = nn.Linear(hidden_dim, latent_dim)
-        self.training = True
-
-    def forward(self, x):
-        """Forward pass."""
-        h_ = torch.relu(self.FC_input(x))
-        mean = self.FC_mean(h_)
-        log_var = self.FC_var(h_)
-
-        std = torch.exp(0.5 * log_var)
-        z = self.reparameterization(mean, std)
-
-        return z, mean, log_var
-
-    def reparameterization(
-        self,
-        mean,
-        std,
-    ):
-        """Reparameterization trick."""
-        epsilon = torch.randn_like(std)
-
-        z = mean + std * epsilon
-
-        return z
+from pytorch_lightning import LightningModule 
 
 
-class Decoder(nn.Module):
-    """Bernoulli MLP Decoder."""
-
-    def __init__(self, latent_dim, hidden_dim, output_dim):
-        super(Decoder, self).__init__()
-        self.FC_hidden = nn.Linear(latent_dim, hidden_dim)
-        self.FC_output = nn.Linear(hidden_dim, output_dim)
-
-    def forward(self, x):
-        """Forward pass."""
-        h = torch.relu(self.FC_hidden(x))
-        x_hat = torch.sigmoid(self.FC_output(h))
-        return x_hat
-
-
-class Model(nn.Module):
+class Model(LightningModule):
     """VAE Model."""
 
-    def __init__(self, encoder, decoder):
+    def __init__(self):
         super(Model, self).__init__()
-        self.encoder = encoder
-        self.decoder = decoder
+
+        self.encode = nn.Sequential(nn.Conv3d(in_channels = 3, out_channels = 4, kernel_size = 3, stride = 1, padding = (1, 1, 0)),
+                                    nn.ReLU(),
+                                    nn.MaxPool3d(size = 4, stride = 4),
+                                    nn.Conv3d(in_channels = 4, out_channels = 8, kernel_size = 3, stride = 1, padding = (1, 1, 0)),
+                                    nn.ReLU(), 
+                                    nn.MaxPool3d(size = 4, stride = 4))
+
+        self.mean = nn.Linear(in_features = 512, out_features = 32)
+        self.var = nn.Linear(in_features = 512, out_features = 32)
+
+        self.decode = nn.Sequential(nn.ConvTranspose3d(in_channels = 8, out_channels = 4, kernel = 1, stride = 3, padding = (16, 16)),
+                                    nn.ConvTranspose3d(in_channels = 4, out_channels = 3, kernel = 1, stride = 3, padding = (16, 16)))
+
+        self.criterium()
 
     def forward(self, x):
         """Forward pass."""
-        z, mean, log_var = self.encoder(x)
-        x_hat = self.decoder(z)
+        print(f"size of x = {x.shape}")
+        x = self.encode(x)
+        x = torch.flatten(x)
 
-        return x_hat, mean, log_var
+        print(f"size of x = {x.shape}")
+
+        mu = self.mean(x)
+        var = self.mean(x)        
+
+        x = x.view(2, 2, 8)
+        print(f"size of x = {x.shape}")
+
+        x = self.decode(x)
+
+        print(f"size of x = {x.shape}")
+        return x 
+
+        
