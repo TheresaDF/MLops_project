@@ -1,5 +1,5 @@
 import torch
-from torch import nn 
+from torch import nn, optim 
 from pytorch_lightning import LightningModule 
 
 
@@ -24,6 +24,7 @@ class Model(LightningModule):
 
         self.mean = -1
         self.log_var = -1 
+        self.criterium = self.loss_function()
 
     def forward(self, x):
         """Forward pass."""
@@ -56,6 +57,14 @@ class Model(LightningModule):
         reproduction_loss = nn.functional.binary_cross_entropy(x_hat, x, reduction="sum")
         kld = -0.5 * torch.sum(1 + self.log_var - self.mean.pow(2) - self.log_var.exp())
         return reproduction_loss + kld
+    
+    def training_step(self):
+        # TODO 
+        pass  
+    
+    def configure_optimizers(self):
+        # we have self.parameters?
+        return optim.Adam(self.parameters(), lr = 1e-2)
 
 if __name__ == "__main__":
     model = Model()
