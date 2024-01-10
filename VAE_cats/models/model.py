@@ -19,10 +19,10 @@ class Model(LightningModule):
         self.mean = nn.Linear(in_features = 512, out_features = 32)
         self.var = nn.Linear(in_features = 512, out_features = 32)
 
-        self.decode = nn.Sequential(nn.ConvTranspose3d(in_channels = 8, out_channels = 4, kernel = 1, stride = 3, padding = (16, 16)),
-                                    nn.ConvTranspose3d(in_channels = 4, out_channels = 3, kernel = 1, stride = 3, padding = (16, 16)))
+        self.decode = nn.Sequential(nn.ConvTranspose3d(in_channels = 8, out_channels = 4, kernel_size= 1, stride = 3, padding = (16, 16)),
+                                    nn.ConvTranspose3d(in_channels = 4, out_channels = 3, kernel_size= 1, stride = 3, padding = (16, 16)))
 
-        self.criterium()
+        # self.criterium()
 
     def forward(self, x):
         """Forward pass."""
