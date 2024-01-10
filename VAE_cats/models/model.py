@@ -11,10 +11,10 @@ class Model(LightningModule):
 
         self.encode = nn.Sequential(nn.Conv3d(in_channels = 3, out_channels = 4, kernel_size = 3, stride = 1, padding = (1, 1, 0)),
                                     nn.ReLU(),
-                                    nn.MaxPool3d(size = 4, stride = 4),
+                                    nn.MaxPool3d(kernel_size = 4, stride = 4),
                                     nn.Conv3d(in_channels = 4, out_channels = 8, kernel_size = 3, stride = 1, padding = (1, 1, 0)),
                                     nn.ReLU(), 
-                                    nn.MaxPool3d(size = 4, stride = 4))
+                                    nn.MaxPool3d(kernel_size = 4, stride = 4))
 
         self.mean = nn.Linear(in_features = 512, out_features = 32)
         self.var = nn.Linear(in_features = 512, out_features = 32)
