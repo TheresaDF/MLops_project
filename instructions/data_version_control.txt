@@ -1,0 +1,14 @@
+# # # Run in WSL terminal # # #
+
+dvc init
+dvc remote add -d storage gdrive://19cz4GQzD8riVdoqO-qGBnY2R9imXDu1l (identifier from URL from google.com/drive/folders/...)
+git add .dvc/config
+dvc add data/
+
+if data tracked by git follow instructions written in terminal and then run "dvc add data/" again
+
+git add data.dvc .gitignore 
+git commit -m"First datasets, containing 25000 images"
+git tag -a "v1.0" -m "data v1.0"
+
+dvc push 
