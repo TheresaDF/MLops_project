@@ -61,19 +61,10 @@ class Model(LightningModule):
         return loss
     
     def test_step(self):
-        noise = torch.randn((64, 32))
+        noise = torch.randn((64, 3, 128, 128))
         images = self.decode(noise)
         return images
-    
-    
-
     
     def configure_optimizers(self):
         # we have self.parameters?
         return optim.Adam(self.parameters(), lr = 1e-2)
-
-if __name__ == "__main__":
-    model = Model()
-    model(torch.randn((64, 3, 128, 128)))
-
-        
