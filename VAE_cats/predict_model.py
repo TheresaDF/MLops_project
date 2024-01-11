@@ -7,5 +7,5 @@ from torch.utils.data import DataLoader
 from torchvision.utils import save_image
 
 model = Model.load_from_checkpoint("models/xxx.ckpt")
-image = Trainer().test(model)
-save_image(image,"test.png")
+images = Trainer().test(model)
+save_image(images.view(64, 1, 128, 128), "generated_sample.png")

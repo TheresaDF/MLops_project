@@ -53,9 +53,20 @@ class Model(LightningModule):
         kld = -0.5 * torch.sum(1 + self.log_var - self.mean.pow(2) - self.log_var.exp())
         return reproduction_loss + kld
     
-    def training_step(self):
-        # TODO 
-        pass  
+    def training_step(self, batch, batch_idx):
+        x, _ = batch
+        x_hat = model(x)
+        loss = self.criterium(x, x_hat)
+        self.log("train_loss", loss)
+        return loss
+    
+    def test_step(self):
+        noise = torch.randn((64, 32))
+        images = self.decode(noise)
+        return images
+    
+    
+
     
     def configure_optimizers(self):
         # we have self.parameters?
