@@ -3,6 +3,7 @@ from torch import nn, optim
 from pytorch_lightning import LightningModule 
 
 
+
 class Model(LightningModule):
     """VAE Model."""
 
@@ -60,11 +61,6 @@ class Model(LightningModule):
         loss = self.loss_function(x, x_hat)
         self.log("train_loss", loss)
         return loss
-    
-    def test_step(self):
-        noise = torch.randn((64, 3, 128, 128))
-        images = self.decode(noise)
-        return images
     
     def configure_optimizers(self):
         # we have self.parameters?
