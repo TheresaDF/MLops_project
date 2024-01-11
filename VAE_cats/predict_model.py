@@ -1,17 +1,11 @@
-import torch
+import torch 
+from pytorch_lightning import Trainer
+from models.model import Model
+from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
+import pytorch_lightning as pl
+from torch.utils.data import DataLoader
+from torchvision.utils import save_image
 
-def predict(
-    model: torch.nn.Module,
-    dataloader: torch.utils.data.DataLoader
-) -> None:
-    """Run prediction for a given model and dataloader.
-    
-    Args:
-        model: model to use for prediction
-        dataloader: dataloader with batches
-    
-    Returns
-        Tensor of shape [N, d] where N is the number of samples and d is the output dimension of the model
-
-    """
-    return torch.cat([model(batch) for batch in dataloader], 0)
+model = Model.load_from_checkpoint("models/xxx.ckpt")
+image = Trainer().test(model)
+save_image(image,"test.png")
