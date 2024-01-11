@@ -3,6 +3,7 @@ docs/site/
 
 # our stuff 
 data/*
+wandb/
 
 
 # test cache
