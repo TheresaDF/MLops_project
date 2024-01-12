@@ -11,8 +11,10 @@ def train(cfg) -> None:
     """ Training the VAE model using pytorch lightning. """
     # set up 
     hparams = cfg.experiments
+    data_params = cfg.data
     dataset = DataLoader(torch.load("data/processed/cats.pt").float(), batch_size=hparams.batch_size, shuffle=True)
-    model = Model()
+    
+    model = Model(image_channels=data_params.channels, h_dim=hparams.h_dim, z_dim=hparams.z_dim, lr=hparams.lr)
     
     # save best model 
     checkpoint_callback = ModelCheckpoint(
