@@ -1,6 +1,6 @@
 import torch 
 from pytorch_lightning import Trainer
-from models.model import Model
+from vae_cats.models.model import Model
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
