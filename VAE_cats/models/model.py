@@ -51,20 +51,23 @@ class Model(LightningModule):
     
     def loss_function(self, x, x_hat):
         """Elbo loss function."""
-        reproduction_loss = nn.functional.binary_cross_entropy(x_hat, x, reduction="sum")
+        reproduction_loss = nn.functional.mse_loss(x_hat, x, reduction="sum")
         kld = -0.5 * torch.sum(1 + self.log_var - self.mean.pow(2) - self.log_var.exp())
         return reproduction_loss + kld
     
     def training_step(self, batch, batch_idx):
         x = batch
-        x= x.permute(0, 3, 1, 2)
+        x = x.permute(0, 3, 1, 2)
         x_hat = torch.sigmoid(self(x))
         if batch_idx % 100 == 0:
             self.logger.experiment.log({"reconstruction": [wandb.Image(x_hat[0], caption="reconstruction")]})
             self.logger.experiment.log({"real": [wandb.Image(x[0], caption="real")]})
         loss = self.criterium(x, x_hat)
         self.log("train_loss", loss)
+
+
         return loss
+    
     def configure_optimizers(self):
         # we have self.parameters?
         return optim.Adam(self.parameters(), lr = 1e-2)
