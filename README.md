@@ -1,6 +1,6 @@
 # VAE_cats
 
-Generate cat images using a variational auto encoder (VAE). 
+Generate cat images using a variational auto encoder (VAE).
 
 ## Project description
 Our goal of this project is to brighten the world with more cat pictures, by using variational auto encoders (vae) to generate new images of cats. As our goal of the project primarily relates to generation it motivates the use of vae rather than ordinary auto encoders. 
