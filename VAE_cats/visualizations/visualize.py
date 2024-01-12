@@ -1,7 +1,7 @@
 import torch 
 from matplotlib import pyplot as plt 
 import numpy as np 
-from VAE_cats.models.model import model 
+from vae_cats.models.model import model 
 
 # # # # Declare constants # # # #
 DATA_PATH = "data/processed/cats.pt"

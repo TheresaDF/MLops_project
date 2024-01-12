@@ -3,7 +3,7 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "VAE_cats"
+name = "vae_cats"
 version = "0.0.1"
 description = "Generate cats using a VAE"
 authors = [
