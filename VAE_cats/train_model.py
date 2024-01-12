@@ -8,6 +8,7 @@ import hydra
 
 @hydra.main(config_path="../conf", config_name="config.yaml",version_base=None)
 def train(cfg) -> None:
+    """ Training the VAE model using pytorch lightning. """
     hparams = cfg.experiments
 
     dataset = DataLoader(torch.load("data/processed/cats.pt").float(), batch_size=hparams.batch_size, shuffle=True)
