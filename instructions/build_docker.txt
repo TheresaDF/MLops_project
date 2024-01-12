@@ -1,6 +1,11 @@
 # make docker file (they are in folder "dockerfiles")
-
-run: docker build -f <name-of-docker-file> . -t trainer:latest 
+docker build -f <name-of-docker-file> . -t trainer:latest 
 
 if "command docker could not be found in wsl" 
 go to docker -> settings -> resources -> WSL integratoin -> enable Ubuntu 
+
+# to test if file works
+docker run --name <name> trainer:latest 
+
+# if wandb is used add "-e WANDB_API_KEY=<key>" after run 
+

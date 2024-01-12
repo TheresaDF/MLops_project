@@ -9,9 +9,12 @@ COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY vae_cats/ vae_cats/
 COPY data/ data/
+COPY conf/ conf/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
+
+RUN pip install wandb
 
 ENTRYPOINT ["python", "-u", "vae_cats/train_model.py"]
