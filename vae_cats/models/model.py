@@ -16,8 +16,10 @@ class UnFlatten(nn.Module):
 class Model(LightningModule):
     """VAE Model."""
 
-    def __init__(self, image_channels=3, h_dim=1024, z_dim=32):
+    def __init__(self, image_channels=3, h_dim=1024, z_dim=32, lr=1e-2):
         super(Model, self).__init__()
+        
+        self.lr = lr
         
         self.encode = nn.Sequential(
             nn.Conv2d(image_channels, 32, kernel_size=4, stride=2),
@@ -82,6 +84,6 @@ class Model(LightningModule):
         return loss
     
     def configure_optimizers(self):
-        optimizer = torch.optim.AdamW(self.parameters(), lr=1e-2)
+        optimizer = torch.optim.AdamW(self.parameters(), lr=self.lr)
         scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=4)
         return {"optimizer": optimizer, "lr_scheduler": scheduler, "monitor": "train_loss", "interval": 1}
