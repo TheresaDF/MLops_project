@@ -1,0 +1,6 @@
+# make docker file (they are in folder "dockerfiles")
+
+run: docker build -f <name-of-docker-file> . -t trainer:latest 
+
+if "command docker could not be found in wsl" 
+go to docker -> settings -> resources -> WSL integratoin -> enable Ubuntu 
