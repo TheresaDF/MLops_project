@@ -4,6 +4,7 @@ docs/site/
 # our stuff 
 data/*
 wandb/
+models/*
 
 
 # test cache
