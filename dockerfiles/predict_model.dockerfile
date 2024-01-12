@@ -8,8 +8,6 @@ RUN apt update && \
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY vae_cats/ vae_cats/
-COPY data/ data/
-COPY models/ models/ 
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
