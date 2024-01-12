@@ -20,7 +20,7 @@ vae.eval()
 with torch.no_grad():
     outputs = vae(dataset).cpu().numpy()
 
-plt.figure(figsize = (8, 6))
+plt.figure(figsize = (10, 8))
 plt.hist(outputs.ravel(), bins = 255, color = [247/255, 187/255, 177/255])
 plt.savefig("reports/figures/cats_distribution.png")
 plt.show()
