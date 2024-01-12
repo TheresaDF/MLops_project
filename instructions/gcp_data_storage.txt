@@ -1,0 +1,27 @@
+Add/Link data to Google Cloud Platform 
+OBS: you need to complete data version control beforehand. 
+
+Needed Google storage extension for dvc
+pip install dvc[gs]
+
+Go to Google Cloud Platform -> Cloud Storage -> Create New Bucket 
+    Give a unique name 
+    choose a region close by 
+    Enable Object versioning (last tab)
+
+Check that the bucket is created in your local terminal with 
+gsutil ls
+
+Add/Link storage from Google Drive configured with dvc to Google cloud storage
+dvc remote add -d remote_storage <output-from-gsutils>
+    <output-from-gsutils> : use corresponding output link from running "gsutil ls" 
+
+Modify the remote to support object versioning
+dvc remote modify remote_storage version_aware true
+
+Finalize buy 
+git add
+git commit
+dvc push
+
+Share folder with others ...
