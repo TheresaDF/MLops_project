@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import numpy as np 
 from VAE_cats.models.model import model 
 
-# # # # Declare constanta # # # #
+# # # # Declare constants # # # #
 DATA_PATH = "data/processed/cats.pt"
 MODEL_PATH = "models/epoch=0-step=27.ckpt"
 NR_OF_CATS = 100 
@@ -16,7 +16,7 @@ dataset = torch.load("data/processed/cats.pt").float()[:NR_OF_CATS]
 # init model 
 vae = model()
 vae.load_state_dict(torch.load(MODEL_PATH)["model_state_dict"])
-model.eval()
+vae.eval()
 
 # inference 
 with torch.no_grad():
