@@ -1,0 +1,3 @@
+defaults:
+    - data: cats_v1
+    - experiments: exp1
