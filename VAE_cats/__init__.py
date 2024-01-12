@@ -1,2 +1,2 @@
-from VAE_cats.models.model import Model
-from VAE_cats.predict_model import predict
+from vae_cats.models.model import Model
+from vae_cats.predict_model import predict

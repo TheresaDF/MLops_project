@@ -1,5 +1,5 @@
 import torch
-from VAE_cats.models.model import Model
+from vae_cats.models.model import Model
 
 def test_model():
     model = Model()

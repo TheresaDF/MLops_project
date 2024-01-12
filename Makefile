@@ -4,7 +4,7 @@
 # GLOBALS                                                                       #
 #################################################################################
 
-PROJECT_NAME = VAE_cats
+PROJECT_NAME = vae_cats
 PYTHON_VERSION = 3.11
 PYTHON_INTERPRETER = python
 

@@ -7,11 +7,11 @@ RUN apt update && \
 
 COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
-COPY VAE_cats/ VAE_cats/
+COPY vae_cats/ vae_cats/
 COPY data/ data/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 
-ENTRYPOINT ["python", "-u", "VAE_cats/train_model.py"]
+ENTRYPOINT ["python", "-u", "vae_cats/train_model.py"]

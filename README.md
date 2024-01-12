@@ -1,9 +1,9 @@
 # VAE_cats
 
-Generate cats using a VAE
+Generate cats using a vae
 
 ## Project description
-Our goal of this project is to brighten the world with more cat pictures, by using variational auto encoders (VAE) to generate new images of cats. As our goal of the project primarily relates to generation it motivates the use of VAE rather than ordinary auto encoders. 
+Our goal of this project is to brighten the world with more cat pictures, by using variational auto encoders (vae) to generate new images of cats. As our goal of the project primarily relates to generation it motivates the use of vae rather than ordinary auto encoders. 
 
 To obtain this, we will seek inspiration from various frameworks such as pre-trained models from HuggingFace, where there are several models, that can be applied in our case. We will also be using a high-level training frameworks, and the one we will be using is pyTorch Lightning. PyTorch Lightning is used to simplify the training process and other boilerplate aspects. Lastly the loss functions will be taken from the framework kornia, which is a computer vision library for pyTorch.
 
@@ -47,7 +47,7 @@ The directory structure of the project looks like this:
 │
 ├── tests                <- Test files
 │
-├── VAE_cats  <- Source code for use in this project.
+├── vae  <- Source code for use in this project.
 │   │
 │   ├── __init__.py      <- Makes folder a Python module
 │   │

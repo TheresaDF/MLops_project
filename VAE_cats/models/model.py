@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 
 
 
-
 class Model(LightningModule):
     """VAE Model."""
 
