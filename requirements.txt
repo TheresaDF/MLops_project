@@ -2,3 +2,4 @@ torch >= 2.1.0
 scikit-image 
 tqdm==4.66.1 
 hydra-core==1.3.2
+pytorch_lightning 
