@@ -1,0 +1,4 @@
+data_path_raw: "../../../data/raw"
+data_path_processed: "../../../data/processed/cats.pt"
+channels: 3
+xy_dim: 128
