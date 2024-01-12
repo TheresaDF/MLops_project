@@ -1,6 +1,6 @@
 import torch 
 from pytorch_lightning import Trainer
-from vae_cats.models.model import Model
+from models.model import Model
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
@@ -20,9 +20,9 @@ def predict(model_path: str) -> None:
         return
     model = Model.load_from_checkpoint(model_path)
     with torch.no_grad():
-        noise = torch.randn(64, 8, 2, 2)
+        noise = torch.randn(64, 1024, 1, 1)
         images = model.decode(noise)
     save_image(images.view(64, 3, 128, 128), "reports/figures/generated_sample.png")
     
 if __name__ == "__main__":
-    predict("models/epoch=4-step=135.ckpt")
+    predict("models\epoch=42-step=1161.ckpt")

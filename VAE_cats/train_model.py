@@ -23,9 +23,9 @@ def train(cfg) -> None:
         monitor="train_loss", patience=10, verbose=True, mode="min"
     )
     # monitor the learning rate 
-    lr_monitor = LearningRateMonitor(logging_interval='epoch')
+    lr_monitor = LearningRateMonitor(logging_interval='step')
     # train
-    trainer = Trainer(callbacks=[early_stopping_callback, checkpoint_callback,lr_monitor],logger=pl.loggers.WandbLogger(project="dtu_mlops"),log_every_n_steps=1, max_epochs=hparams.max_epochs)
+    trainer = Trainer(callbacks=[early_stopping_callback, checkpoint_callback,lr_monitor],logger=pl.loggers.WandbLogger(project="dtu_mlops"),log_every_n_steps=10, max_epochs=hparams.max_epochs)
     trainer.fit(model,dataset)
     
 if __name__ == "__main__":
