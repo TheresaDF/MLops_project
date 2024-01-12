@@ -10,4 +10,4 @@ def test_data():
     assert len(dataset) == 1706, "Dataset did not have the correct number of samples"
     # check image shape 
     for img in dataset:
-        assert img.shape == (3,128,128), "Image in the dataset does not have the correct shape"
+        assert img.shape == (128,128,3), "Image in the dataset does not have the correct shape"
