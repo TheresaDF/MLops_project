@@ -9,38 +9,50 @@ import matplotlib.pyplot as plt
 class Model(LightningModule):
     """VAE Model."""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, image_channels=3, h_dim=1024, z_dim=32):
+        super(Model, self).__init__()
         
-        self.encode = nn.Sequential(nn.Conv2d(in_channels = 3, out_channels = 4, kernel_size = 3, stride = 1, padding = (1, 1)),
-                                    nn.ReLU(),
-                                    nn.MaxPool2d(kernel_size = 4, stride = 4),
-                                    nn.Conv2d(in_channels = 4, out_channels = 8, kernel_size = 3, stride = 1, padding = (1, 1)),
-                                    nn.ReLU(), 
-                                    nn.MaxPool2d(kernel_size = 4, stride = 4))
-        self.FC_mean = nn.Linear(in_features = 512, out_features = 32)
-        self.FC_var = nn.Linear(in_features = 512, out_features = 32)
-
-        self.decode = nn.Sequential(nn.ConvTranspose2d(in_channels = 8, out_channels = 4, kernel_size= 3, stride = 16, padding = (0, 0), output_padding = (13, 13)),
-                                    nn.ConvTranspose2d(in_channels = 4, out_channels = 3, kernel_size= 3, stride = 4, padding = (0, 0), output_padding = (1, 1)))
-        #self.mean = -1
-        #self.log_var = -1 
+        self.encode = nn.Sequential(
+            nn.Conv2d(image_channels, 32, kernel_size=4, stride=2),
+            nn.ReLU(),
+            nn.Conv2d(32, 64, kernel_size=4, stride=2),
+            nn.ReLU(),
+            nn.Conv2d(64, 128, kernel_size=4, stride=2),
+            nn.ReLU(),
+            nn.Conv2d(128, 256, kernel_size=4, stride=8),
+            nn.ReLU()
+        )
+        
+        self.FC_mean = nn.Linear(h_dim, z_dim)
+        self.FC_var = nn.Linear(h_dim, z_dim)
+        self.fc = nn.Linear(z_dim, h_dim)
+        
+        self.decode = nn.Sequential(
+            nn.ConvTranspose2d(h_dim, 128, kernel_size=5, stride=2),
+            nn.ReLU(),
+            nn.ConvTranspose2d(128, 64, kernel_size=5, stride=2),
+            nn.ReLU(),
+            nn.ConvTranspose2d(64, 32, kernel_size=6, stride=2),
+            nn.ReLU(),
+            nn.ConvTranspose2d(32, 16, kernel_size=6, stride=2),
+            nn.ReLU(),
+            nn.ConvTranspose2d(16, image_channels, kernel_size=2, stride=2),
+            nn.Sigmoid())
         self.criterium = self.loss_function
 
     def forward(self, x):
         """Forward pass."""
         h_ = self.encode(x)
-        h_ = h_.reshape(-1, 512)
+        h_ = h_.reshape(h_.size(0),-1)
 
         self.mean = self.FC_mean(h_)
         self.log_var = self.FC_var(h_)        
         std = torch.exp(0.5 * self.log_var)
         z = self.reparam(self.mean, std)
 
-        z = z.view(-1, 8, 2, 2)
-        x_hat = self.decode(z)
-
-        return x_hat
+        z = self.fc(z)
+        z = z.reshape(z.size(0), 1024, 1, 1)
+        return self.decode(z)
 
     
     def reparam(self, mean, std):
@@ -57,7 +69,7 @@ class Model(LightningModule):
     def training_step(self, batch, batch_idx):
         x = batch
         x = x.permute(0, 3, 1, 2)
-        x_hat = torch.sigmoid(self(x))
+        x_hat = self(x)
         if batch_idx % 100 == 0:
             self.logger.experiment.log({"reconstruction": [wandb.Image(x_hat[0], caption="reconstruction")]})
             self.logger.experiment.log({"real": [wandb.Image(x[0], caption="real")]})
@@ -68,5 +80,6 @@ class Model(LightningModule):
         return loss
     
     def configure_optimizers(self):
-        # we have self.parameters?
-        return optim.Adam(self.parameters(), lr = 1e-2)
+        optimizer = torch.optim.AdamW(self.parameters(), lr=1e-2)
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=4)
+        return {"optimizer": optimizer, "lr_scheduler": scheduler, "monitor": "train_loss", "interval": 1}
