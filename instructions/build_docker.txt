@@ -1,11 +1,15 @@
 # make docker file (they are in folder "dockerfiles")
-docker build -f <name-of-docker-file> . -t trainer:latest 
+docker build -f <name-of-docker-file> . -t <docker-image-name>:latest 
 
-if "command docker could not be found in wsl" 
-go to docker -> settings -> resources -> WSL integratoin -> enable Ubuntu 
+# see all your docker images using the command: "docker images"
+
+# if "command docker could not be found in wsl" 
+# go to docker -> settings -> resources -> WSL integratoin -> enable Ubuntu 
 
 # to test if file works
-docker run --name <name> trainer:latest 
+docker run --name <run-name> <docker-image-name>:latest 
 
 # if wandb is used add "-e WANDB_API_KEY=<key>" after run 
-
+# if you want to save outputs from a folder in the docker container use "-v $(pwd):/folder:/folder/"
+# example 
+docker run -e WANDB_API_KEY=<key> --name <run-name> -v $(pwd):/folder:/folder <docker-image-name>:latest
