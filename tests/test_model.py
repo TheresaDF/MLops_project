@@ -6,7 +6,7 @@ def test_model():
     output = model(torch.randn((64,3,128,128)))
     
     # test model output shapes
-    assert len(output) == 3, "Model expects three outputs: generated image, mean, and variance"
+    assert len(output) == 3, "Model expects output as a tuple of three tensors"
     assert output[0].shape == (64,3,128,128), "Model did not generate correct image shape"
     assert output[1].shape == (64,32), "Model did not have the expected latent size for mean"
     assert output[2].shape == (64,32), "Model did not have the expected latent size for log var"
