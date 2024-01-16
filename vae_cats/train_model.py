@@ -12,7 +12,7 @@ def train(cfg) -> None:
     # set up 
     hparams = cfg.experiments
     data_params = cfg.data
-    dataset = DataLoader(torch.load("data/processed/cats.pt").float(), batch_size=hparams.batch_size, shuffle=True)
+    dataset = DataLoader(torch.load("data/processed/cats.pt").float(), batch_size=hparams.batch_size, shuffle=True, num_workers = 4)
     
     model = Model(image_channels=data_params.channels, h_dim=hparams.h_dim, z_dim=hparams.z_dim, lr=hparams.lr)
     
