@@ -8,4 +8,3 @@ go to docker -> settings -> resources -> WSL integratoin -> enable Ubuntu
 docker run --name <name> trainer:latest 
 
 # if wandb is used add "-e WANDB_API_KEY=<key>" after run 
-
