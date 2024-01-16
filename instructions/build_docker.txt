@@ -12,4 +12,4 @@ docker run --name <run-name> <docker-image-name>:latest
 # if wandb is used add "-e WANDB_API_KEY=<key>" after run 
 # if you want to save outputs from a folder in the docker container use "-v $(pwd):/folder:/folder/"
 # example 
-docker run -e WANDB_API_KEY=<key> --name <run-name> -v $(pwd):/folder:/folder <docker-image-name>:latest
+docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/folder:/folder --name <run-name> <docker-image-name>:latest
