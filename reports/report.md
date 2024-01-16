@@ -103,7 +103,8 @@ using wandb.   ---
 >
 > Answer:
 
---- question 7 fill here ---
+--- We are primarily testing if the data has the correct shaped, and nothing has gone wrong in the saving and preprocessing. 
+Furthermore the model  ---
 
 ### Question 8
 
@@ -245,7 +246,7 @@ using wandb.   ---
 >
 > Answer:
 
---- question 16 fill here ---
+--- Lots and lots of print statements. Like a lot  ---
 
 ## Working in the cloud
 

@@ -2,9 +2,11 @@ import torch
 from models.model import Model
 from torchvision.utils import save_image
 import os
+import hydra 
 import argparse
 
-def predict(model_path: str) -> None:
+@hydra.main(config_path="../conf", config_name="config.yaml",version_base=None)
+def predict(cfg, model_path: str) -> None:
     """ Generate cat images from white noise using a trained model. 
     
         Args:
@@ -13,6 +15,8 @@ def predict(model_path: str) -> None:
         Returns: 
             None
     """
+    hparams = cfg.experiments
+
     if not os.path.exists(model_path):
         return
     model = Model.load_from_checkpoint(model_path)

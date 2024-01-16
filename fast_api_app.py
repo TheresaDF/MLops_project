@@ -6,7 +6,9 @@ import io
 import imageio
 import torchvision
 
-model = Model.load_from_checkpoint("models\epoch=42-step=1161.ckpt")
+# model = Model.load_from_checkpoint("models\epoch=42-step=1161.ckpt")
+model = Model.load_from_checkpoint("models/epoch=0-step=27.ckpt")
+
 app = FastAPI()
 @app.get("/")
 def show_image():
@@ -19,3 +21,5 @@ def show_image():
         data = output.getvalue()
     #bigger size 
     return Response(data, media_type="image/png")
+
+
