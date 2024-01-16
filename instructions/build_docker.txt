@@ -9,7 +9,18 @@ docker build -f <name-of-docker-file> . -t <docker-image-name>:latest
 # to test if file works
 docker run --name <run-name> <docker-image-name>:latest 
 
-# if wandb is used add "-e WANDB_API_KEY=<key>" after run 
-# if you want to save outputs from a folder in the docker container use "-v $(pwd):/folder:/folder/"
-# example 
-docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/folder:/folder --name <run-name> <docker-image-name>:latest
+# if wandb is used add following after run 
+-e WANDB_API_KEY=<key>
+
+# if you want to mount outputs from a folder in the docker container to your local use 
+-v "$(pwd)"/folder:/folder/
+
+# if you want to mount a training file from your local computer to the container
+-v "$(pwd)"/models/my_model.pt:/models/my_model.pt
+
+# Examples 
+# Trainer example: a succesfull run for a training image looked like
+docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models --name <run-name> trainer:latest
+
+# Testing example: a succesfull run for a prediction image looked like
+docker run --name <run-name> --rm -v "$(pwd)"/models/epoch=18-step=513.ckpt:/models/epoch=18-step=513.ckpt predict:latest --model models/epoch=18-step=513.ckpt
