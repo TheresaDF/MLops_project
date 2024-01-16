@@ -3,7 +3,7 @@
 >
 > Answer:
 
---- question 1 fill here ---
+--- We are group 36 ---
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -14,7 +14,7 @@
 >
 > Answer:
 
---- question 2 fill here ---
+--- s194324, s194644, s194329 ---
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -27,7 +27,11 @@
 >
 > Answer:
 
---- question 3 fill here ---
+--- For the main model, a VAE, we wrote a simple CNN ourselves using PyTorch. To compute the loss however, we empployed the third party Structural Similarity Index (SSIM)
+loss function from Kornia, since this loss measures similarity between two given images. We would like to increase similarity as much as possible 
+between our input and output, why this loss seemed fitting. In order to reduce boilerplate code, pytorch_lightning is used for training the model. The use of this
+framework enables several beneficial functionalities, such as early stopping and distributed training. The use of the library Hydra ensured easy management of 
+hyperparameters during training, and enables sweeping for optimal parameters. ---
 
 ## Coding environment
 
@@ -46,7 +50,9 @@
 >
 > Answer:
 
---- question 4 fill here ---
+--- The management of dependencies was handled somewhat manually. Every time a new package was used it needed to go in a requirements file. 
+To ensure the list contains all the necessary packages continuous integration is applied to our GitHub repo. In order for this to be more foolproof
+it naturally requires a good amount of test with a good coverage.    ---
 
 ### Question 5
 
@@ -61,7 +67,13 @@
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+--- The project was initialized using the cookiecutter template provided in the M6-module of the course. The overall structure can be seen 
+[here](https://github.com/TheresaDF/MLops_project/tree/main). More folders have been added with the use of dvc for data version control, 
+the configuration files for hydra and a folder named "instructions" gathering all commands required to solve a specific task. For example one file
+is called "build_docker" that details the command needed to build an image and run it afterwards. The visualize folder was not really used; our
+project aimed to used a VAE to create more images of cats which means the predict function worked more as an inference script generating images of cats
+by parsing noise through the decoder. There was not the same need for a dedicated prediction script, sa we tracked inputs and their corresponding reconstructions 
+using wandb.   ---
 
 ### Question 6
 
