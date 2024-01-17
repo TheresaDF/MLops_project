@@ -9,7 +9,7 @@ COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY vae_cats/ vae_cats/
 COPY conf/ conf/
-COPY .dvc/ .dvc/
+COPY .dvc/config .dvc/config 
 
 ENV GIT_PYTHON_REFRESH=quiet
 
