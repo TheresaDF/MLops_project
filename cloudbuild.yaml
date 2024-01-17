@@ -4,3 +4,9 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/adroit-gravity-410709/training']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/adroit-gravity-410709/predict', '-f', 'dockerfiles/predict_model.dockerfile', '.']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/adroit-gravity-410709/predict']
