@@ -1,0 +1,12 @@
+# make config file as config_cpu.yaml. This one has not requestet any GPU 
+# where imageUri has the following format: imageUri: gcr.io/<project-id>/<docker-img>
+
+then run 
+gcloud ai custom-jobs create \
+    --region=europe-west1 \
+    --display-name=test-run \
+    --config=config.yaml
+
+
+# go to gcp -> vertex AI -> training -> custom jobs. 
+# choose the region as the one chosen for the job and the job should pop up 
