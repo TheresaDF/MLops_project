@@ -1,0 +1,6 @@
+seed: 47 
+batch_size: 64
+lr: 0.01
+max_epochs: 500 
+h_dim: 1024
+z_dim: 32

@@ -3,7 +3,8 @@ from typing import Union
 from torch import nn, Tensor
 from pytorch_lightning import LightningModule 
 import wandb
-import kornia 
+
+
 
 class Flatten(nn.Module):
     def forward(self, input):
@@ -56,7 +57,7 @@ class Model(LightningModule):
             nn.ConvTranspose2d(16, image_channels, kernel_size=2, stride=2),
             nn.Sigmoid())
         self.criterium = self.loss_function
-        self.kornia_loss = kornia.losses.MS_SSIMLoss()
+        # self.kornia_loss = kornia.losses.kl_div_loss_2d()
     
     def reparam(self, h: Tensor) -> Union[Tensor, Tensor, Tensor]:
         """ Reparameterization of the hidden variable. """
@@ -75,8 +76,7 @@ class Model(LightningModule):
     
     def loss_function(self, x: Tensor, x_hat: Tensor, mean: Tensor, log_var: Tensor) -> Tensor:
         """Elbo loss function (reproduction loss + Kullback-Leibler divergence). """
-        # reproduction_loss = nn.functional.mse_loss(x_hat, x, reduction="sum")
-        reproduction_loss = self.kornia_loss(x_hat, x)
+        reproduction_loss = nn.functional.mse_loss(x, x_hat, reduction="sum")
         kld = -0.5 * torch.sum(1 + log_var - mean.pow(2) - log_var.exp())
         return reproduction_loss + kld
     
@@ -93,7 +93,6 @@ class Model(LightningModule):
         # calculate loss 
         loss = self.criterium(x, x_hat,mean,logvar)
         self.log("train_loss", loss)
-
         return loss
     
     def configure_optimizers(self) -> dict:
