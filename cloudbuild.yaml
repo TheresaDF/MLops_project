@@ -1,5 +1,9 @@
 steps:
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', 'gs://our_mlops_project_bucket/data/processed/*', 'data/']
+
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/adroit-gravity-410709/training', '-f', 'dockerfiles/train_model.dockerfile', '.']
+
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/adroit-gravity-410709/training']
