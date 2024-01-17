@@ -15,8 +15,6 @@ def predict(cfg, model_path: str) -> None:
         Returns: 
             None
     """
-    hparams = cfg.experiments
-
     if not os.path.exists(model_path):
         return
     model = Model.load_from_checkpoint(model_path)
