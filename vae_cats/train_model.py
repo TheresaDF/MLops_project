@@ -13,7 +13,7 @@ def train(cfg) -> None:
     hparams = cfg.experiments
     data_params = cfg.data
     torch.manual_seed(hparams.seed)
-    dataset = DataLoader(torch.load("data/processed/cats.pt").float(), batch_size=hparams.batch_size, shuffle=True, num_workers = 4)
+    dataset = DataLoader(torch.load(data_params.data_path_processed).float(), batch_size=hparams.batch_size, shuffle=True, num_workers = 4)
     model = Model(image_channels=data_params.channels, h_dim=hparams.h_dim, z_dim=hparams.z_dim, lr=hparams.lr)
     
     # save best model 
