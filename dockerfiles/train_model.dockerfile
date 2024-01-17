@@ -20,5 +20,6 @@ RUN pip install dvc --no-cache-dir
 
 RUN dvc config core.no_scm true
 RUN dvc pull 
+RUN dvc checkout
 
 ENTRYPOINT ["python", "-u", "vae_cats/train_model.py"]
