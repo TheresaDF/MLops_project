@@ -18,6 +18,8 @@ docker run --name <run-name> <docker-image-name>:latest
 # if you want to mount a training file from your local computer to the container
 -v "$(pwd)"/models/my_model.pt:/models/my_model.pt
 
+# for running testing of a test/pred docker images it is good to add "-rm" as it removes the container afterwards or something 
+
 # Examples 
 # Trainer example: a succesfull run for a training image looked like
 docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models --name <run-name> trainer:latest
