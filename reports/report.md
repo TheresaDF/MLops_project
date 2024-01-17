@@ -119,7 +119,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- Our total code coverage is many percent ---
+--- Our total code coverage is many percent. Teo has made so many good tests ---
 
 ### Question 9
 

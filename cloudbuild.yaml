@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/dark-automata-410710/testing', '.']
+  args: ['build', '-t', 'gcr.io/adroit-gravity-410709/training', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/dark-automata-410710/testing']
+  args: ['push', 'gcr.io/adroit-gravity-410709/training']
