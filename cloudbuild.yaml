@@ -1,7 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/adroit-gravity-410709/training', '-f', 'dockerfiles/train_model.dockerfile', '.']
-  dir: 'MLops_project'
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/adroit-gravity-410709/training',  '-f', 'dockerfiles/train_model.dockerfile']
-  dir: 'MLops_project'
+  args: ['push', 'gcr.io/adroit-gravity-410709/training']
