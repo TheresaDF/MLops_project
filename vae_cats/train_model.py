@@ -29,9 +29,9 @@ def train(cfg) -> None:
     trainer = Trainer(callbacks=[early_stopping_callback, checkpoint_callback,lr_monitor],
                       logger=pl.loggers.WandbLogger(project="dtu_mlops"),
                       log_every_n_steps=10, 
-                      max_epochs=hparams.max_epochs, 
-                      devices = 8,
-                      accelerator = 'auto')
+                      max_epochs=hparams.max_epochs,
+                      devices = 4,
+                      accelerator = 'cpu')
     
     trainer.fit(model,dataset)
     
