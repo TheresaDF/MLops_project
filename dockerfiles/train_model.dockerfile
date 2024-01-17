@@ -9,6 +9,7 @@ COPY requirements.txt requirements.txt
 COPY pyproject.toml pyproject.toml
 COPY vae_cats/ vae_cats/
 COPY conf/ conf/
+COPY .dvc/ .dvc/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
