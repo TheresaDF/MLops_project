@@ -119,7 +119,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- Our total code coverage is many percent. Teo has made so many good tests ---
+--- Our total code coverage is at $80\%$, tests have been made for the data and model. ---
 
 ### Question 9
 
