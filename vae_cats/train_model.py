@@ -30,7 +30,7 @@ def train(cfg) -> None:
                       logger=pl.loggers.WandbLogger(project="dtu_mlops"),
                       log_every_n_steps=10, 
                       max_epochs=hparams.max_epochs,
-                      devices = 1,
+                      devices = 4,
                       accelerator = 'cpu')
     
     trainer.fit(model,dataset)
