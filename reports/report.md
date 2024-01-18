@@ -27,7 +27,7 @@
 >
 > Answer:
 
---- The main model for cat image generation is a variational autoencoder (VAE). We wrote a simple convolutional neural network (CNN) ourselves using PyTorch. To compute the loss, however, we employed a third-party tool, the Structural Similarity Index (SSIM) loss function from Monai, since this loss is based on a measure of similarity between two given images. We would like to increase similarity as much as possible 
+--- The main model for cat image generation is a variational auto encoder (VAE). We wrote a simple convolutional neural network (CNN) ourselves using PyTorch. To compute the loss, however, we employed a third-party tool, the Structural Similarity Index (SSIM) loss function from Monai, since this loss is based on a measure of similarity between two given images. We would like to increase similarity as much as possible 
 between our input (a cat image) and output (reconstruction of the image), why this loss seemed fitting. Nevertheless, using the SSIM loss resulted in poor results, so the Mean Squared Error (MSE) loss function from PyTorch was used instead which produced more promising results. Hence, our final model is trained using the MSE loss function. To reduce boilerplate code, `pytorch_lightning` is used for training the model. The use of this framework enables several beneficial functionalities, such as early stopping and distributed training. The use of the library Hydra ensured easy management of hyperparameters during training and enabled sweeping for optimal parameters. ---
 
 ## Coding environment
@@ -47,7 +47,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- The management of dependencies was handled somewhat manually. Every time a new package was used in the project it needed to go into the respective requirements file. Continuous integration for unittesting our main branch was applied to our GitHub repository. These tests checked whether necessary packages in the tested scripts were present in our requirements list. However, these tests do not cover all our scripts and code, hence for this to be more foolproof it naturally requires a more extensive amount of tests with good coverage. Furthermore, our two docker images (one for testing, the other for predictions) include our requirements, thus if these images run without package-related issues, our dependencies concerning training and testing are handled. ---
+--- The management of dependencies was handled somewhat manually. Every time a new package was used in the project it needed to go into the respective requirements file. Continuous integration for unittesting our main branch was applied to our GitHub repository. These tests checked whether necessary packages in the tested scripts were present in our requirements list. However, these tests do not cover all our scripts and code, hence for this to be more foolproof it naturally requires a more extensive amount of tests with good coverage. Furthermore, our two docker images (one for training, the other for predictions) include our requirements, thus if these images run without package-related issues, our dependencies concerning training and testing are handled. ---
 
 ### Question 5
 
@@ -92,7 +92,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- In total, we have implemented two test files (data and model) each consisting of three and five assert statements respectively. The data testing included primarily testing of the image shapes and pixel values while the model testing mostly consisted of checking image and output dimensions. For example, whether the model's forward pass outputted the expected shapes and if the image generation had the correct shape as well. ---
+--- In total, we have implemented two test files (data and model) each consisting of three and five assert statements respectively. The data testing included primarily testing of the image shapes and pixel value range while the model testing mostly consisted of checking image and output dimensions. For example, whether the model's forward pass outputted the expected shapes and if the image generation had the correct shape as well. ---
 
 ### Question 8
 
@@ -327,7 +327,7 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- question 22 fill here ---
+--- At first we created a FastApi application that could generate images using our VAE locally. This could then be utilises when we had to deploy our model in the cloud, since it follows somewhat the same structure. We deployed the model in the cloud using Cloud Functions. Cloud Run could also be applied to deploy, but since our model is rather small and not complex, it was easy to do using Cloud Function. The deployed model does not take any input from the user, since it generates new images. Therefore to use the deployed model, it can be invoked simply by entering the webpage https://europe-west1-dtumlops-410911.cloudfunctions.net/cats_mlops. Every time the user updates the page, new images will be generated and plotted. ---
 
 ### Question 23
 
@@ -342,7 +342,7 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- question 23 fill here ---
+--- Since our model does not take any input and does not measure accuracy, data drifting and performance monitoring is rather difficult to perform. The only thing that we could monitor is system telemetry, where we look at the standard metrics that Google Cloud provides. Furthermore we created a service level objective (SLO), that measures the latency, and how many percentages that are higher than a threshold we have set. Monitoring in general can help longevity by performing data drifting, which ensures the developers, whether the input data follows the same distribution as the data the model are trained upon. If not, the model might have to be retrained to fit the new distribution better. Moreover the monitoring can set up alarms that warns the developers, if the model performance begins to be lower than a certain threshold. It can also check if the system are getting increased counts, or getting a higher latency and alarm if it is becoming a problem. This can help to maintain the deployed model and the user experience.---
 
 ### Question 24
 

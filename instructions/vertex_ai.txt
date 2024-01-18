@@ -1,10 +1,10 @@
-# make config file as config_cpu.yaml. This one has not requestet any GPU 
+# make config file as config_cpu.yaml. This one has not requested any GPU 
 # where imageUri has the following format: imageUri: gcr.io/<project-id>/<docker-img>
 
 then run 
 gcloud ai custom-jobs create \
     --region=europe-west1 \
-    --display-name=test-run \
+    --display-name=train1 \
     --config=config.yaml
 
 

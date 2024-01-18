@@ -10,8 +10,6 @@ COPY pyproject.toml pyproject.toml
 COPY vae_cats/ vae_cats/
 COPY conf/ conf/
 
-ENV GIT_PYTHON_REFRESH=quiet
-
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
