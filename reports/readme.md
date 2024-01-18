@@ -520,6 +520,5 @@ We also encountered issues with GitHub actions as our tests were queued for 48 h
 s194644: deployment, fast_api, monitoring, training including lightning, model implementation, logging to wandb
 s194324: docker, model implementation, data version control, snacks, hydra configurations, unittest, trigger workflow
 s194329: vertex AI, make_dataset, docker, model implementation, data version control, snacks, profiling, trigger workflow, distributed dataloading and training  
-
 Generally we worked together a lot. We have been sitting together everyday, asking each other for help, so we almost all contributed to each part of the project. 
  ---
