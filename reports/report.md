@@ -350,7 +350,7 @@ Cloud Triggers are used to enable continuous integration. Depending on the confi
 >
 > Answer:
 
---- Group member 1 used 0.06 credits, group member 2 used 4.0, and group memeber used 0.01. In total 4.07 credist was spend during the development of this project. ---
+--- Group member 1 used 0.06 credits, group member 2 used 4.0, and group memeber 3 used 0.01. In total 4.07 credist was spend during the development of this project. ---
 
 ## Overall discussion of project
 
