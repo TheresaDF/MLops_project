@@ -234,7 +234,9 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- Lots and lots of print statements. Like a lot. ---
+--- As it is with everything the debugging depended on the person. We have to admit that print statements are the way we usually go about this, and this project was no exception.
+From time to time with scripts taking a longer time to run we used the debugging tool in VS code. We did a profiling of the preprocessing of the data as this was the script 
+whose running time was only succeeded by that of the training script. The training script, however, was implemented using pytorch-lightning so there was not much optimization we could do on our part. The profiling did not make that much of a difference as we chose data already preprocessed, why our script only had to read, resize and save the images.  ---
 
 ## Working in the cloud
 
@@ -251,7 +253,11 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- question 17 fill here ---
+--- We used several GCP services in our project including bucket, bucket, cloud functions, triggers and artifacts registry. 
+The bucket is used for storing data. Several people can have access and they can be linked with Google Drive and pulled and push with dvc. 
+Cloud triggers are used to enable continuous integration. Depending on the configuration the trigger listens to incoming events and automatically starts building. 
+In this project the triggers are used to automatically build docker images for training and prediction. The resulting images are then stored in the aetifacts registry. 
+Cloud functions is a serverless way of deploying ones model. In this project it is used to make a user able to generate a 8 $\times$ 8 grid of cats images.  ---
 
 ### Question 18
 
@@ -266,7 +272,8 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- question 18 fill here ---
+--- We used the compute engines when training the model using vertex AI. This service creates virtual machines and deletes them afterwards when they are no longer in use. 
+As some group members burnet through their credits quite quickly due to not turining off their compute engines, this is a very nice and appreciated feature.  ---
 
 ### Question 19
 
@@ -275,7 +282,9 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- question 19 fill here ---
+--- ![All buckets overview](figures/buckets.png)
+    ![content of bucket used for project](figures/bucket_content.png)
+ ---
 
 ### Question 20
 
