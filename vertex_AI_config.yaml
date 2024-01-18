@@ -7,4 +7,4 @@ workerPoolSpecs:
         imageUri: gcr.io/adroit-gravity-410709/training
         env:
         - name: WANDB_API_KEY
-          value: XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          value: XXXXXXXXXXXXXXXXXXXXXXXXXX
