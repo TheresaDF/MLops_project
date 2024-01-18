@@ -273,7 +273,7 @@ Cloud Triggers are used to enable continuous integration. Depending on the confi
 >
 > Answer:
 
---- We used the Compute Engines when training the model using vertex AI. This service creates virtual machines and deletes them afterward when they are no longer in use. We used the instances with the following hardware "n1-highmem-2" (CPU) and started the training using our custom training Docker images. Since our model is a rather small CNN it was realistic to train on a CPU, which is the cheaper option compared with training on a GPU. Except for the possibility of forgetting to turn off one's Computing Engines, and thus consequently burning through all one's credits rather quickly, this is a very nice and appreciated feature. ---
+--- We used the Compute Engines when training the model using vertex AI. This service creates virtual machines and deletes them afterward when they are no longer in use. We used the instances with the following hardware "n1-highmem-4" (CPU) and started the training using our custom training Docker images. Since our model is a rather small CNN it was realistic to train on a CPU, which is the cheaper option compared with training on a GPU. Except for the possibility of forgetting to turn off one's Computing Engines, and thus consequently burning through all one's credits rather quickly, this is a very nice and appreciated feature. ---
 
 ### Question 19
 
@@ -321,7 +321,7 @@ Cloud Triggers are used to enable continuous integration. Depending on the confi
 >
 > Answer:
 
---- At first we created a FastApi application that could generate images using our VAE locally. This could then be utilises when we had to deploy our model in the cloud, since it follows somewhat the same structure. We deployed the model in the cloud using Cloud Functions. Cloud Run could also be applied to deploy, but since our model is rather small and not complex, it was easy to do using Cloud Function. The deployed model does not take any input from the user, since it generates new images. Therefore to use the deployed model, it can be invoked simply by entering the webpage https://europe-west1-dtumlops-410911.cloudfunctions.net/cats_mlops. Every time the user updates the page, new images will be generated and plotted. ---
+--- At first, we created a FastApi application that could generate images using our VAE locally. This could then be utilized when we had to deploy our model in the cloud since it follows somewhat the same structure. We deployed the model in the cloud using Cloud Functions. Cloud Run could also be applied to deploy, but since our model is rather small and not complex, it was easy to do using Cloud Function. The deployed model does not take any input from the user, since it generates new images. Therefore to use the deployed model, it can be invoked simply by entering the webpage https://europe-west1-dtumlops-410911.cloudfunctions.net/cats_mlops. Every time the user updates the page, new images will be generated and plotted. ---
 
 ### Question 23
 
@@ -336,7 +336,7 @@ Cloud Triggers are used to enable continuous integration. Depending on the confi
 >
 > Answer:
 
---- Since our model does not take any input and does not measure accuracy, data drifting and performance monitoring is rather difficult to perform. The only thing that we could monitor is system telemetry, where we look at the standard metrics that Google Cloud provides. Furthermore we created a service level objective (SLO), that measures the latency, and how many percentages that are higher than a threshold we have set. Monitoring in general can help longevity by performing data drifting, which ensures the developers, whether the input data follows the same distribution as the data the model are trained upon. If not, the model might have to be retrained to fit the new distribution better. Moreover the monitoring can set up alarms that warns the developers, if the model performance begins to be lower than a certain threshold. It can also check if the system are getting increased counts, or getting a higher latency and alarm if it is becoming a problem. This can help to maintain the deployed model and the user experience.---
+--- Since our model does not take any input and does not measure accuracy, data drifting and performance monitoring is rather difficult to perform. The only thing that we could monitor is system telemetry, where we look at the standard metrics that Google Cloud provides. Furthermore, we created a service level objective (SLO), that measures the latency, and how many percentages that are higher than a threshold we have set. Monitoring in general can help longevity by performing data drifting, which ensures the developers, whether the input data follows the same distribution as the data the model is trained upon. If not, the model might have to be retrained to fit the new distribution better. Moreover, the monitoring can set up alarms that warn the developers, if the model performance begins to be lower than a certain threshold. It can also check if the system is getting increased counts, or getting a higher latency and alarm if it is becoming a problem. This can help to maintain the deployed model and the user experience. ---
 
 ### Question 24
 
@@ -350,7 +350,7 @@ Cloud Triggers are used to enable continuous integration. Depending on the confi
 >
 > Answer:
 
---- question 24 fill here ---
+--- Group member 1 used 0.06 credits, group member 2 used 4.0, and group memeber used 0.01. In total 4.07 credist was spend during the development of this project. ---
 
 ## Overall discussion of project
 
