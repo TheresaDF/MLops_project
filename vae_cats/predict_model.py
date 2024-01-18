@@ -5,8 +5,7 @@ import os
 import hydra 
 import argparse
 
-@hydra.main(config_path="../conf", config_name="config.yaml",version_base=None)
-def predict(cfg, model_path: str) -> None:
+def predict(model_path: str) -> None:
     """ Generate cat images from white noise using a trained model. 
     
         Args:

@@ -20,7 +20,7 @@ def train(cfg) -> None:
     checkpoint_callback = ModelCheckpoint(dirpath="./models", monitor="train_loss", mode="min")
 
     # add early stopping
-    early_stopping_callback = EarlyStopping(monitor="train_loss", patience=10, verbose=True, mode="min")
+    early_stopping_callback = EarlyStopping(monitor="train_loss", patience=25, verbose=True, mode="min")
 
     # monitor the learning rate 
     lr_monitor = LearningRateMonitor(logging_interval='step')
@@ -30,7 +30,7 @@ def train(cfg) -> None:
                       logger=pl.loggers.WandbLogger(project="dtu_mlops"),
                       log_every_n_steps=10, 
                       max_epochs=hparams.max_epochs,
-                      devices = 4,
+                      devices = 1,
                       accelerator = 'cpu')
     
     trainer.fit(model,dataset)
