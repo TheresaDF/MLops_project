@@ -1,4 +1,4 @@
-# make config file as config_cpu.yaml. This one has not requestet any GPU 
+# make config file as config_cpu.yaml. This one has not requested any GPU 
 # where imageUri has the following format: imageUri: gcr.io/<project-id>/<docker-img>
 
 then run 
