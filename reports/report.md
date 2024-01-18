@@ -210,8 +210,8 @@ If the loss still did not decrease after 25 steps then the training is terminate
 ![Losses and learning rate](figures/wandb_loss.png)
 
 During training we also tracked the input images and their respective outputs as seen in the following two images. 
-![Input](figures/input.png)
-![Reconstructions](figures/output.png) ---
+![Input](figures/wandb_input.png)
+![Reconstructions](figures/wandb_output.png) ---
 
 ### Question 15
 
