@@ -62,7 +62,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 > *experiments.*
 > Answer:
 
---- The project was initialized using the cookiecutter template provided in the M6 module of the course. The overall structure can be seen [here](https://github.com/TheresaDF/MLops_project/tree/main). More folders have been added: With the use of DVC for data version control a ".dvc" folder is added, a "conf" folder for the configuration files for Hydra, and an "instructions" folder gathering all commands required to solve a specific task. For example, the file `build_docker.txt` details the commands needed to build a Docker image and run it afterward. The "visualize" folder was not used; Our project aimed to use a VAE to create more images of cats which means the predict function worked more as an inference script generating images of cats by parsing noise through the decoder. There was not the same need for a dedicated prediction script, so we tracked inputs and their corresponding reconstructions using Weights & Biases (wandb). ---
+--- The project was initialized using the cookiecutter template provided in the M6 module of the course. The overall structure can be seen [here](https://github.com/TheresaDF/MLops_project/tree/main). More folders have been added: With the use of DVC for data version control a ".dvc" folder is added, a "conf" folder for the configuration files for Hydra, and an "instructions" folder gathering all commands required to solve a specific task. For example, the file `build_docker.txt` details the commands needed to build a Docker image and run it afterward. The "visualize" folder was not used; Our project aimed to use a VAE to create more images of cats which means the predict function worked more as an inference script generating images of cats by parsing noise through the decoder. There was not the same need for a dedicated prediction script, so we tracked inputs and their corresponding reconstructions using Weights & Biases (W&B). ---
 
 ### Question 6
 
@@ -187,8 +187,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- We made use of config files to keep track of hyperparameter experiments used for training. The respective experiment configuration file is attached to the command run for training. As we have included wandb to monitor the training process, the same command can be found in the wandb run (overview $\rightarrow$ command), and thus which configuration experiment was used. Furthermore, the configuration file includes a seed, which is then set before initializing the CNN and running training, making the results reproducible. Thus, to reproduce an experiment, one has to find which experiment configuration file was used (found in wandb) and then run the training script with that respective configuration. ---
---- By having the experiment configuration files, we know which hyperparameters have been used for training. Furthermore, the configuration file includes a seed, hence the results are reproducible. To replicate an experiment one only has to run the training script with the same configuration file.  ---
+--- We made use of config files to keep track of hyperparameter experiments used for training. The respective experiment configuration file is attached to the command run for training. As we have included W&B to monitor the training process, the same command can be found in the W&B run (overview $\rightarrow$ command), and thus which configuration experiment was used. Furthermore, the configuration file includes a seed, which is then set before initializing the CNN and running training, making the results reproducible. Thus, to reproduce an experiment, one has to find which experiment configuration file was used (found in W&B) and then run the training script with that respective configuration. ---
 
 ### Question 14
 
@@ -206,11 +205,10 @@ between our input (a cat image) and output (reconstruction of the image), why th
 > Answer:
 
 --- 
-As seen in the first image we have a steadily decreasing training loss curve. If the loss did not decrease during 10 steps the learning rate decreases. 
-If the loss still did not decrease after 25 steps then the training is terminated. 
+As seen in the first image where the learning rate and loss are tracked, both show a decreasing curve as expected. A learning rate scheduler is used which is why the learning rate decreases. More specifically, it drops its current value to half if the training loss does not decrease during 10 steps. In the learning rate figure it can be seen, that this particular experiment had a starting learning rate of 0.01. Next, observing the training loss curve, we have a steady decrease in the loss. As a consequence of early stopping in the training, if the loss still does not decrease after 25 steps, the training is terminated. For this particular run the training did not reach the maximum of 500 epochs ($\sim$ 13500 steps) which was set in the experiment. 
 ![Losses and learning rate](figures/wandb_loss.png)
 
-During training we also tracked the input images and their respective outputs as seen in the following two images. 
+During training, we also tracked the input images and their respective reconstruction (output of the model), such an example is seen in the following two images. This does not tell us anything in particular about our experiment parameters, however, it visualizes how well the model is at reconstructing cat images in the training set. Hence, giving a relatively decent indication of the current model performance. 
 ![Input](figures/wandb_input.png)
 ![Reconstructions](figures/wandb_output.png) ---
 
@@ -227,7 +225,7 @@ During training we also tracked the input images and their respective outputs as
 >
 > Answer:
 
---- For our project we developed several images: one for training and one for testing. When running our docker training images a few arguments are needed; As we use Weights & Biases (wandb) an API key for a wandb account is needed, and the trained model has to be mounted locally as well. For example to run the training docker image: `docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models --name trainer_run1 trainer:latest experiments=exp1`. Link to docker file: <weblink>*. For running the prediction image the newly trained model has to be mounted onto the image: `docker run --name run_pred1 --rm -v "$(pwd)"/models/my_model.pt:/models/my_model.pt predict:latest --model models/my_model.pt` ---
+--- For our project, we developed several images: one for training and one for testing. When running our docker training images a few arguments are needed; As we use Weights & Biases (W&B) an API key for a W&B account is needed, the trained model has to be mounted to get it locally as well, and lastly the local data must be mounted onto the image. A run example of a Docker training image: `docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models -v "$(pwd)"/data:/data --name run1 trainer:latest experiments=exp2`. Link to the training Docker file can be found [here](https://github.com/TheresaDF/MLops_project/blob/main/dockerfiles/train_model.dockerfile). For running the prediction Docker image only the newly trained model has to be mounted onto the image, moreover the model is then passed to the script with the argparse command `--model`. An example run of the image: `docker run --name run_pred1 --rm -v "$(pwd)"/models/my_model.pt:/models/my_model.pt predict:latest --model models/my_model.pt` ---
 
 ### Question 16
 
@@ -242,9 +240,7 @@ During training we also tracked the input images and their respective outputs as
 >
 > Answer:
 
---- As it is with everything the debugging depended on the person. We have to admit that print statements are the way we usually go about this, and this project was no exception.
-From time to time with scripts taking a longer time to run we used the debugging tool in VS code. We did a profiling of the preprocessing of the data as this was the script 
-whose running time was only succeeded by that of the training script. The training script, however, was implemented using pytorch-lightning so there was not much optimization we could do on our part. The profiling did not make that much of a difference as we chose data already preprocessed, why our script only had to read, resize and save the images.  ---
+--- As it is with everything the debugging depended on the person. We have to admit that print statements are the way we usually go about this, and this project was no exception. From time to time with scripts taking a longer time to run we used the debugging tool in VS code. We did a profiling of the preprocessing process of the raw data as this was the script whose run time was only succeeded by that of the training script. The training script, however, was implemented using `pytorch-lightning` so there was not much optimization we could do on our part. The profiling did not make that much of a difference as we chose data already preprocessed, why our script only had to read, resize, and save the images. ---
 
 ## Working in the cloud
 
@@ -261,11 +257,8 @@ whose running time was only succeeded by that of the training script. The traini
 >
 > Answer:
 
---- We used several GCP services in our project including bucket, bucket, cloud functions, triggers and artifacts registry. 
-The bucket is used for storing data. Several people can have access and they can be linked with Google Drive and pulled and push with dvc. 
-Cloud triggers are used to enable continuous integration. Depending on the configuration the trigger listens to incoming events and automatically starts building. 
-In this project the triggers are used to automatically build docker images for training and prediction. The resulting images are then stored in the aetifacts registry. 
-Cloud functions is a serverless way of deploying ones model. In this project it is used to make a user able to generate a 8 $\times$ 8 grid of cats images.  ---
+--- We used several GCP services in our project including Bucket, Cloud Function, Trigger, and Artifacts Registry. The Bucket was used for storing our data. Several people can gain access to it and it can be linked with Google Drive and pulled and pushed using DVC. 
+Cloud Triggers are used to enable continuous integration. Depending on the configuration the trigger listens to incoming events and automatically starts building. In this project, the triggers are used to automatically build our docker images for training and prediction each time changes are pushed to the main branch. The resulting images are then stored in the Artifacts Registry, these images can afterward be pulled locally as well. Cloud Functions is a serverless way of deploying one's model. In this project, it is used to make a user able to generate an 8 $\times$ 8 grid of cat images. ---
 
 ### Question 18
 
@@ -280,8 +273,7 @@ Cloud functions is a serverless way of deploying ones model. In this project it 
 >
 > Answer:
 
---- We used the compute engines when training the model using vertex AI. This service creates virtual machines and deletes them afterwards when they are no longer in use. 
-As some group members burnet through their credits quite quickly due to not turining off their compute engines, this is a very nice and appreciated feature.  ---
+--- We used the Compute Engines when training the model using vertex AI. This service creates virtual machines and deletes them afterward when they are no longer in use. We used the instances with the following hardware "n1-highmem-2" (CPU) and started the training using our custom training Docker images. Since our model is a rather small CNN it was realistic to train on a CPU, which is the cheaper option compared with training on a GPU. Except for the possibility of forgetting to turn off one's Computing Engines, and thus consequently burning through all one's credits rather quickly, this is a very nice and appreciated feature. ---
 
 ### Question 19
 
