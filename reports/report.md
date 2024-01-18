@@ -204,7 +204,14 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- question 14 fill here ---
+--- 
+As seen in the first image we have a steadily decreasing training loss curve. If the loss did not decrease during 10 steps the learning rate decreases. 
+If the loss still did not decrease after 25 steps then the training is terminated. 
+![Losses and learning rate](figures/wandb_loss.png)
+
+During training we also tracked the input images and their respective outputs as seen in the following two images. 
+![Input](figures/input.png)
+![Reconstructions](figures/output.png) ---
 
 ### Question 15
 
