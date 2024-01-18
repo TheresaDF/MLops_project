@@ -2,11 +2,9 @@ import torch
 from fastapi import FastAPI
 from vae_cats.models.model import Model
 from fastapi.responses import Response
-import io
 from io import BytesIO
 from PIL import Image
 import numpy as np
-import imageio
 import torchvision
 
 model = Model.load_from_checkpoint("models\epoch=42-step=1161.ckpt")
