@@ -18,6 +18,7 @@ WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install . --no-deps --no-cache-dir
 RUN pip install dvc --no-cache-dir
+RUN pip install dvc-ds --no-cache-dir
 
 RUN dvc config core.no_scm true
 RUN dvc pull 
