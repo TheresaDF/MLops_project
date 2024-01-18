@@ -3,7 +3,7 @@
 >
 > Answer:
 
---- We are group 36 ---
+--- 36 ---
 
 ### Question 2
 > **Enter the study number for each member in the group**
