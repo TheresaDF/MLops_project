@@ -304,7 +304,8 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- question 21 fill here ---
+--- 
+![Cloud build history](figures/cloud_build_history.png) ---
 
 ### Question 22
 
