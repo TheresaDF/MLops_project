@@ -1,5 +1,84 @@
-<p>ou signed up on <learn.inside.dtu.dk>**</p>
+<h1>Exam template for 02476 Machine Learning Operations</h1>
+<p>This is the report template for the exam. Please only remove the text formatted as with three dashes in front and behind
+like:</p>
+<p><code>--- question 1 fill here ---</code></p>
+<p>where you instead should add your answers. Any other changes may have unwanted consequences when your report is auto
+generated in the end of the course. For questions where you are asked to include images, start by adding the image to
+the <code>figures</code> subfolder (please only use <code>.png</code>, <code>.jpg</code> or <code>.jpeg</code>) and then add the following code in your answer:</p>
+<p><code>markdown
+![my_image](figures/&lt;image&gt;.&lt;extension&gt;)</code></p>
+<p>In addition to this markdown file, we also provide the <code>report.py</code> script that provides two utility functions:</p>
+<p>Running:</p>
+<p><code>bash
+python report.py html</code></p>
+<p>will generate an <code>.html</code> page of your report. After deadline for answering this template, we will autoscrape
+everything in this <code>reports</code> folder and then use this utility to generate an <code>.html</code> page that will be your serve
+as your final handin.</p>
+<p>Running</p>
+<p><code>bash
+python report.py check</code></p>
+<p>will check your answers in this template against the constrains listed for each question e.g. is your answer too
+short, too long, have you included an image when asked to.</p>
+<p>For both functions to work it is important that you do not rename anything. The script have two dependencies that can
+be installed with <code>pip install click markdown</code>.</p>
+<h2>Overall project checklist</h2>
+<p>The checklist is <em>exhaustic</em> which means that it includes everything that you could possible do on the project in
+relation the curricilum in this course. Therefore, we do not expect at all that you have checked of all boxes at the
+end of the project.</p>
+<h3>Week 1</h3>
+<ul>
+<li>[ ] Create a git repository</li>
+<li>[ ] Make sure that all team members have write access to the github repository</li>
+<li>[ ] Create a dedicated environment for you project to keep track of your packages</li>
+<li>[ ] Create the initial file structure using cookiecutter</li>
+<li>[ ] Fill out the <code>make_dataset.py</code> file such that it downloads whatever data you need and</li>
+<li>[ ] Add a model file and a training script and get that running</li>
+<li>[ ] Remember to fill out the <code>requirements.txt</code> file with whatever dependencies that you are using</li>
+<li>[ ] Remember to comply with good coding practices (<code>pep8</code>) while doing the project</li>
+<li>[ ] Do a bit of code typing and remember to document essential parts of your code</li>
+<li>[ ] Setup version control for your data or part of your data</li>
+<li>[ ] Construct one or multiple docker files for your code</li>
+<li>[ ] Build the docker files locally and make sure they work as intended</li>
+<li>[ ] Write one or multiple configurations files for your experiments</li>
+<li>[ ] Used Hydra to load the configurations and manage your hyperparameters</li>
+<li>[ ] When you have something that works somewhat, remember at some point to to some profiling and see if
+      you can optimize your code</li>
+<li>[ ] Use Weights &amp; Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+      consider running a hyperparameter optimization sweep.</li>
+<li>[ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code</li>
+</ul>
+<h3>Week 2</h3>
+<ul>
+<li>[ ] Write unit tests related to the data part of your code</li>
+<li>[ ] Write unit tests related to model construction and or model training</li>
+<li>[ ] Calculate the coverage.</li>
+<li>[ ] Get some continuous integration running on the github repository</li>
+<li>[ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup</li>
+<li>[ ] Create a trigger workflow for automatically building your docker images</li>
+<li>[ ] Get your model training in GCP using either the Engine or Vertex AI</li>
+<li>[ ] Create a FastAPI application that can do inference using your model</li>
+<li>[ ] If applicable, consider deploying the model locally using torchserve</li>
+<li>[ ] Deploy your model in GCP using either Functions or Run as the backend</li>
+</ul>
+<h3>Week 3</h3>
+<ul>
+<li>[ ] Check how robust your model is towards data drifting</li>
+<li>[ ] Setup monitoring for the system telemetry of your deployed model</li>
+<li>[ ] Setup monitoring for the performance of your deployed model</li>
+<li>[ ] If applicable, play around with distributed data loading</li>
+<li>[ ] If applicable, play around with distributed model training</li>
+<li>[ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed</li>
+</ul>
+<h3>Additional</h3>
+<ul>
+<li>[ ] Revisit your initial project description. Did the project turn out as you wanted?</li>
+<li>[ ] Make sure all group members have a understanding about all parts of the project</li>
+<li>[ ] Uploaded all your code to github</li>
+</ul>
+<h2>Group information</h2>
+<h3>Question 1</h3>
 <blockquote>
+<p><strong>Enter the group number you signed up on <learn.inside.dtu.dk></strong></p>
 <p>Answer:</p>
 </blockquote>
 <p>--- 36 ---</p>
