@@ -18,7 +18,7 @@ def train(cfg) -> None:
     # data path 
     if "gcs" in os.listdir():
         path = "gcs/our_mlops_project_bucket/data/processed/cats.pt"
-        save_path = "gcs/our_project_models/"
+        save_path = "gcs/our_project_models"
     else: 
         path = "data/processed/cats.pt"
         save_path = "./models"

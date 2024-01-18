@@ -385,7 +385,12 @@ Cloud Triggers are used to enable continuous integration. Depending on the confi
 >
 > Answer:
 
---- question 26 fill here ---
+--- We definitely spent the most time with getting Docker to work. None of us have worked with it before so there was a lot of new things to learn. Getting it to work with dvc proved tiresome, and we eventually chose to not include the data in the docker images altogether. The individual building blocks
+to the whole MLops setup are somewhat understandable when working with them, but when all components need to work together it gets very challenging. The type of errors you 
+encounter in this course are very different from errors we usually encounter in courses. 
+We needed to include something from a third party in the project. We wrote the model ourselves in order to control the size and thereby the training time. The third party then came
+in the choice of loss function. We spent quite some time experimenting with different reconstruction loss functions from Kornia and Monai, where none gave any promising results. 
+We also encountered issues with GitHub actions as our tests were queued for 48 hours so validating they worked was a time-consuming process. When it comes to training, parsing the right arguments, such as the WAND_API_KEY seems trivial when looking back, but in the moment it is difficult to find the exact correct way.  ---
 
 ### Question 27
 
