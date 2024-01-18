@@ -10,6 +10,7 @@ COPY pyproject.toml pyproject.toml
 COPY vae_cats/ vae_cats/
 COPY conf/ conf/
 COPY .dvc/config .dvc/config 
+COPY data.dvc data.dvc
 
 ENV GIT_PYTHON_REFRESH=quiet
 
