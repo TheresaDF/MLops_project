@@ -3,7 +3,7 @@
 >
 > Answer:
 
---- We are group 36 ---
+--- 36 ---
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -84,7 +84,7 @@ using wandb.   ---
 >
 > Answer:
 
---- question 6 fill here ---
+--- Yes. We aimed to follow the `pep8` conventions i.e. classes are with captial starting letters, while function with small letters where words are separated using underscores. This made it easier to quickly recocnize a function from a class. Furthermore, we have included typing and doc strings to our functions, however, some function descriptions are more thorough. The reason. In Python it is not nessessary to declare the type of variables, therefore it is a good practise to enter the types in the function heads to easier understand the input and output of functions. ---
 
 ## Version control
 
@@ -103,8 +103,7 @@ using wandb.   ---
 >
 > Answer:
 
---- We are primarily testing if the data has the correct shaped, and nothing has gone wrong in the saving and preprocessing. 
-Furthermore the model  ---
+--- In total we have implemented two test files (data and model) each consisting of 3 and 5 assert statements respectively. The data testing included primarily testing of the image shapes and pixel values while the model testing mostly consists of checking the model forward shapes and generation shape. ---
 
 ### Question 8
 
@@ -119,7 +118,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- Our total code coverage is at $80\%$, tests have been made for the data and model. ---
+--- Our total code coverage is at $81\%$, tests have been made for the data and model. No, even with $100\%$ coverage these type of tests cannot account for mathematical or model performance errors. ---
 
 ### Question 9
 
@@ -134,7 +133,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- question 9 fill here ---
+--- Despite the advantages of branches and pull requests, we did not use it in our workflow as this is a small project and our group is rather small as well. The pros of using pull requests is that the main branch is more "protected" so pushing to the main branch has to be checked by one or more people, while branches allow for experimentation without the fear of ruining the already deployed and working model. ---
 
 ### Question 10
 
@@ -149,7 +148,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- question 10 fill here ---
+--- We did make use of DVC in the following way; adding the data on Google Drive using DVC and afterwards linked it to a Google Clould Bucket. We never used other verisons of the data, however in the end this helped us to easily share the data with each other. ---
 
 ### Question 11
 
@@ -165,7 +164,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- question 11 fill here ---
+--- We have applied continues integration (CI) by both using unittesting with GitHub Actions and trigger workflow for automatically updating Docker images. We have organized our unittesting into two separate files: one for running data testing and one for model testing. These tests are all in a single folder. Our CI is integrated with GitHub Action, however only on one operating system (ubunto-latest), as we experienced errors with using multiple operating systems as the testing were queued for about 48 hours and then failed to run. In addition we also only tested for a single python version (3.11). An example of a triggered workflow can be seen here: <https://github.com/TheresaDF/MLops_project/actions/runs/7553326045>. For trigger workflow we are building two images; one for training and the other for prediction (inference).  ---
 
 ## Running code and tracking experiments
 
@@ -184,7 +183,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- question 12 fill here ---
+--- We used Hydra for configuring our experiments. We use both a configuration file for data and another for model and training experiments. To conduct a new experiment, one has to create a new experiment yaml file in the folder conf/experiments with the various hyperparameters set and passing this to the training as such: python vae_cats/train_model.py experiments=<my_new_exp>. Furthermore, during prediction we parsed our trained model to the script using an argparser. 
 
 ### Question 13
 
@@ -199,7 +198,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- question 13 fill here ---
+--- By having the experiment configuration files, we know which hyperparameters have been used for training. Furthermore, the configuration file includes a seed, hence the results are reproducible. ---
 
 ### Question 14
 
@@ -231,7 +230,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- question 15 fill here ---
+--- For our project we developed several images: one for training and one for testing. When running our docker training images a few arguments are needed; As we use Weights & Biases (wandb) an API key for a wandb account is needed, and the trained model has to be mounted locally as well. For example to run the training docker image: `docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models --name trainer_run1 trainer:latest experiments=exp1`. Link to docker file: <weblink>*. For running the prediction image the newly trained model has to be mounted onto the image: `docker run --name run_pred1 --rm -v "$(pwd)"/models/my_model.pt:/models/my_model.pt predict:latest --model models/my_model.pt` ---
 
 ### Question 16
 
@@ -246,7 +245,7 @@ Furthermore the model  ---
 >
 > Answer:
 
---- Lots and lots of print statements. Like a lot  ---
+--- Lots and lots of print statements. Like a lot. ---
 
 ## Working in the cloud
 
