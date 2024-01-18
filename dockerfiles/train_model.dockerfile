@@ -20,7 +20,6 @@ RUN pip install . --no-deps --no-cache-dir
 RUN pip install dvc --no-cache-dir
 RUN pip install dvc-gs --no-cache-dir
 
-RUN dvc config core.no_scm true
 RUN dvc pull 
 RUN dvc checkout
 
