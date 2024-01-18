@@ -5,15 +5,23 @@ from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, Learning
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 import hydra
+import os 
 
 @hydra.main(config_path="../conf", config_name="config.yaml",version_base=None)
 def train(cfg) -> None:
     """ Training the VAE model using pytorch lightning. """
     # set up 
     hparams = cfg.experiments
-    data_params = cfg.data
+    data_params = cfg.data 
     torch.manual_seed(hparams.seed)
-    dataset = DataLoader(torch.load(data_params.data_path_processed).float(), batch_size=hparams.batch_size, shuffle=True, num_workers = 4)
+
+    # data path 
+    if "gcs" in os.listdir():
+        path = "gcs/our_mlops_project_bucket/data/processed/cats.pt"
+    else: 
+        path = "data/processed/cats.pt"
+
+    dataset = DataLoader(torch.load(path).float(), batch_size=hparams.batch_size, shuffle=True, num_workers = 4)
     model = Model(image_channels=data_params.channels, h_dim=hparams.h_dim, z_dim=hparams.z_dim, lr=hparams.lr)
     
     # save best model 
