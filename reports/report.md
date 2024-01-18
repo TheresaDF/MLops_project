@@ -27,7 +27,7 @@
 >
 > Answer:
 
---- The main model for cat image generation is a variational autoencoder (VAE). We wrote a simple convolutional neural network (CNN) ourselves using PyTorch. To compute the loss, however, we employed a third-party tool, the Structural Similarity Index (SSIM) loss function from Monai, since this loss is based on a measure of similarity between two given images. We would like to increase similarity as much as possible 
+--- The main model for cat image generation is a variational auto encoder (VAE). We wrote a simple convolutional neural network (CNN) ourselves using PyTorch. To compute the loss, however, we employed a third-party tool, the Structural Similarity Index (SSIM) loss function from Monai, since this loss is based on a measure of similarity between two given images. We would like to increase similarity as much as possible 
 between our input (a cat image) and output (reconstruction of the image), why this loss seemed fitting. Nevertheless, using the SSIM loss resulted in poor results, so the Mean Squared Error (MSE) loss function from PyTorch was used instead which produced more promising results. Hence, our final model is trained using the MSE loss function. To reduce boilerplate code, `pytorch_lightning` is used for training the model. The use of this framework enables several beneficial functionalities, such as early stopping and distributed training. The use of the library Hydra ensured easy management of hyperparameters during training and enabled sweeping for optimal parameters. ---
 
 ## Coding environment
@@ -47,7 +47,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- The management of dependencies was handled somewhat manually. Every time a new package was used in the project it needed to go into the respective requirements file. Continuous integration for unittesting our main branch was applied to our GitHub repository. These tests checked whether necessary packages in the tested scripts were present in our requirements list. However, these tests do not cover all our scripts and code, hence for this to be more foolproof it naturally requires a more extensive amount of tests with good coverage. Furthermore, our two docker images (one for testing, the other for predictions) include our requirements, thus if these images run without package-related issues, our dependencies concerning training and testing are handled. ---
+--- The management of dependencies was handled somewhat manually. Every time a new package was used in the project it needed to go into the respective requirements file. Continuous integration for unittesting our main branch was applied to our GitHub repository. These tests checked whether necessary packages in the tested scripts were present in our requirements list. However, these tests do not cover all our scripts and code, hence for this to be more foolproof it naturally requires a more extensive amount of tests with good coverage. Furthermore, our two docker images (one for training, the other for predictions) include our requirements, thus if these images run without package-related issues, our dependencies concerning training and testing are handled. ---
 
 ### Question 5
 
@@ -92,7 +92,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- In total, we have implemented two test files (data and model) each consisting of three and five assert statements respectively. The data testing included primarily testing of the image shapes and pixel values while the model testing mostly consisted of checking image and output dimensions. For example, whether the model's forward pass outputted the expected shapes and if the image generation had the correct shape as well. ---
+--- In total, we have implemented two test files (data and model) each consisting of three and five assert statements respectively. The data testing included primarily testing of the image shapes and pixel value range while the model testing mostly consisted of checking image and output dimensions. For example, whether the model's forward pass outputted the expected shapes and if the image generation had the correct shape as well. ---
 
 ### Question 8
 
@@ -153,7 +153,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- We have applied continues integration (CI) by both using unittesting with GitHub Actions and trigger workflow for automatically updating Docker images. We have organized our unittesting into two separate files: one for running data testing and one for model testing. These tests are all in a single folder. Our CI is integrated with GitHub Action, however only on one operating system (ubunto-latest), as we experienced errors with using multiple operating systems as the testing were queued for about 48 hours and then failed to run. In addition we also only tested for a single python version (3.11). An example of a triggered workflow can be seen here: <https://github.com/TheresaDF/MLops_project/actions/runs/7553326045>. For trigger workflow we are building two images; one for training and the other for prediction (inference).  ---
+--- We have applied continuous integration (CI) by both using unittesting with GitHub Actions and trigger a workflow for automatically updating Docker images in Google Cloud. Our unittesting is organized into two separate files; One for running data testing and one for model testing. These tests are all in a single folder, "tests". Our CI is integrated with GitHub Actions such that each time changes are pushed to the main branch the unittests implemented will run. The tests are run on a single operating system (ubuntu-latest), as we experienced errors with using multiple operating systems since the test runs were queued for about 48 hours and then failed to run. In addition, we also only tested for a single Python version, namely 3.11. An example of a triggered workflow can be seen [here](https://github.com/TheresaDF/MLops_project/actions/runs/7553326045). For trigger workflow, we are building two Docker images; one for training and the other for prediction (inference). Likewise, the build is triggered when changes are pushed to the main branch. This trigger is time-efficient, as it is not necessary to remember to build a new training and prediction Docker image locally each time changes are made. Instead, the images can be easily pulled from the Cloud when needed. ---
 
 ## Running code and tracking experiments
 
@@ -172,7 +172,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- We used Hydra for configuring our experiments. We use both a configuration file for data and another for model and training experiments. To conduct a new experiment, one has to create a new experiment yaml file in the folder conf/experiments with the various hyperparameters set and passing this to the training as such: python vae_cats/train_model.py experiments=<my_new_exp>. Furthermore, during prediction we parsed our trained model to the script using an argparser. 
+--- We used Hydra for configuring our experiments, where configuration files for our data and the model and training experiments were created. To conduct a new experiment, one has to create a new experiment configuration file in the folder `conf/experiments` where the various hyperparameters are set to the desired value. To train a model using the new configuration it must be passed onto the training command as such: `python vae_cats/train_model.py experiments=<my_new_exp>`. Furthermore, for model inference, we implemented an argparser to pass on a trained model to generate cat images. --- 
 
 ### Question 13
 
@@ -187,7 +187,8 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- By having the experiment configuration files, we know which hyperparameters have been used for training. Furthermore, the configuration file includes a seed, hence the results are reproducible. ---
+--- We made use of config files to keep track of hyperparameter experiments used for training. The respective experiment configuration file is attached to the command run for training. As we have included wandb to monitor the training process, the same command can be found in the wandb run (overview $\rightarrow$ command), and thus which configuration experiment was used. Furthermore, the configuration file includes a seed, which is then set before initializing the CNN and running training, making the results reproducible. Thus, to reproduce an experiment, one has to find which experiment configuration file was used (found in wandb) and then run the training script with that respective configuration. ---
+--- By having the experiment configuration files, we know which hyperparameters have been used for training. Furthermore, the configuration file includes a seed, hence the results are reproducible. To replicate an experiment one only has to run the training script with the same configuration file.  ---
 
 ### Question 14
 
