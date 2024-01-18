@@ -304,7 +304,9 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- question 20 fill here ---
+---  
+![Content of container registry](figures/container_registry.png)
+![Training docker images](figures/container_registry_trainer.png) ---
 
 ### Question 21
 
