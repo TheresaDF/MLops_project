@@ -293,8 +293,8 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- [All buckets overview](figures/buckets.png)
-    [content of bucket used for project](figures/bucket_content.png)
+--- ![All buckets overview](figures/buckets.png)
+    ![content of bucket used for project](figures/bucket_content.png)
  ---
 
 ### Question 20
