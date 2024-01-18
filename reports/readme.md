@@ -209,7 +209,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- The total code coverage of our code is $81\%$. Unittests have been implemented for testing the processed data and our image generation model. As we implemented `pytorch_lightning` our training script is quite packed in a few lines of code, therefore more difficult to test in the same way. Hence, we chose not to use unittesting on our `train_model.py` script. Even with $100\%$ coverage of our code, it is not a guarantee to trust the code to be $100\%$ error-free. These types of tests cannot account for mathematical errors or errors related to model performance.  ---
+--- The total code coverage of our code is $81\%$. Unittests have been implemented for testing the processed data and our image generation model. As we implemented `pytorch_lightning` our training script is quite packed in a few lines of code, therefore it is more difficult to test in the same way. Hence, we chose not to use unittesting on our `train_model.py` script. Even with $100\%$ coverage of our code, it is not guaranteed that the code is $100\%$ error-free. These types of tests cannot account for mathematical errors or errors related to model performance. Unittesting tests whether the code can run, but not whether it produces the desired result. ---
 
 ### Question 9
 
@@ -239,7 +239,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- We did make use of DVC in the following way: Added the data on Google Drive using DVC and afterward linked it to a Google Cloud Bucket which was shared among our group members. This helped us to easily share the data in the group as it could be pulled locally using a single command. However, we never used other versions of the data, and thus did not use DVC for version control, nevertheless, if in the future there is a need for another data version it can be easily managed. ---
+--- We did make use of DVC in the following way: Added the data on Google Drive using DVC and afterward linked it to a Google Cloud Bucket which was shared among our group members. Having the data in a Bucket also enabled easy training on vertex-AI.  This helped us to easily share the data in the group as it could be pulled locally using a single command. However, we never used other versions of the data, and thus did not use DVC for version control, nevertheless, if in the future there is a need for another data version it can be easily managed. ---
 
 ### Question 11
 
