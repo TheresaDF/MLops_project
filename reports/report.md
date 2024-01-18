@@ -62,7 +62,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 > *experiments.*
 > Answer:
 
---- The project was initialized using the cookiecutter template provided in the M6 module of the course. The overall structure can be seen [here](https://github.com/TheresaDF/MLops_project/tree/main). More folders have been added: With the use of DVC for data version control a ".dvc" folder is added, a "conf" folder for the configuration files for Hydra, and an "instructions" folder gathering all commands required to solve a specific task. For example, the file `build_docker.txt` details the commands needed to build a Docker image and run it afterward. The "visualize" folder was not used; Our project aimed to use a VAE to create more images of cats which means the predict function worked more as an inference script generating images of cats by parsing noise through the decoder. There was not the same need for a dedicated prediction script, so we tracked inputs and their corresponding reconstructions using Weights & Biases (wandb). ---
+--- The project was initialized using the cookiecutter template provided in the M6 module of the course. The overall structure can be seen [here](https://github.com/TheresaDF/MLops_project/tree/main). More folders have been added: With the use of DVC for data version control a ".dvc" folder is added, a "conf" folder for the configuration files for Hydra, and an "instructions" folder gathering all commands required to solve a specific task. For example, the file `build_docker.txt` details the commands needed to build a Docker image and run it afterward. The "visualize" folder was not used; Our project aimed to use a VAE to create more images of cats which means the predict function worked more as an inference script generating images of cats by parsing noise through the decoder. There was not the same need for a dedicated prediction script, so we tracked inputs and their corresponding reconstructions using Weights & Biases (W&B). ---
 
 ### Question 6
 
@@ -187,7 +187,7 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- We made use of config files to keep track of hyperparameter experiments used for training. The respective experiment configuration file is attached to the command run for training. As we have included wandb to monitor the training process, the same command can be found in the wandb run (overview $\rightarrow$ command), and thus which configuration experiment was used. Furthermore, the configuration file includes a seed, which is then set before initializing the CNN and running training, making the results reproducible. Thus, to reproduce an experiment, one has to find which experiment configuration file was used (found in wandb) and then run the training script with that respective configuration. ---
+--- We made use of config files to keep track of hyperparameter experiments used for training. The respective experiment configuration file is attached to the command run for training. As we have included W&B to monitor the training process, the same command can be found in the W&B run (overview $\rightarrow$ command), and thus which configuration experiment was used. Furthermore, the configuration file includes a seed, which is then set before initializing the CNN and running training, making the results reproducible. Thus, to reproduce an experiment, one has to find which experiment configuration file was used (found in W&B) and then run the training script with that respective configuration. ---
 
 ### Question 14
 
@@ -205,11 +205,10 @@ between our input (a cat image) and output (reconstruction of the image), why th
 > Answer:
 
 --- 
-As seen in the first image we have a steadily decreasing training loss curve. If the loss did not decrease during 10 steps the learning rate decreases. 
-If the loss still did not decrease after 25 steps then the training is terminated. 
+As seen in the first image where the learning rate and loss are tracked, both show a decreasing curve as expected. A learning rate scheduler is used which is why the learning rate decreases. More specifically, it drops its current value to half if the training loss does not decrease during 10 steps. In the learning rate figure it can be seen, that this particular experiment had a starting learning rate of 0.01. Next, observing the training loss curve, we have a steady decrease in the loss. As a consequence of early stopping in the training, if the loss still does not decrease after 25 steps, the training is terminated. For this particular run the training did not reach the maximum of 500 epochs ($\sim$ 13500 steps) which was set in the experiment. 
 ![Losses and learning rate](figures/wandb_loss.png)
 
-During training we also tracked the input images and their respective outputs as seen in the following two images. 
+During training, we also tracked the input images and their respective reconstruction (output of the model), such an example is seen in the following two images. This does not tell us anything in particular about our experiment parameters, however, it visualizes how well the model is at reconstructing cat images in the training set. Hence, giving a relatively decent indication of the current model performance. 
 ![Input](figures/wandb_input.png)
 ![Reconstructions](figures/wandb_output.png) ---
 
@@ -226,7 +225,7 @@ During training we also tracked the input images and their respective outputs as
 >
 > Answer:
 
---- For our project we developed several images: one for training and one for testing. When running our docker training images a few arguments are needed; As we use Weights & Biases (wandb) an API key for a wandb account is needed, and the trained model has to be mounted locally as well. For example to run the training docker image: `docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models --name trainer_run1 trainer:latest experiments=exp1`. Link to docker file: <weblink>*. For running the prediction image the newly trained model has to be mounted onto the image: `docker run --name run_pred1 --rm -v "$(pwd)"/models/my_model.pt:/models/my_model.pt predict:latest --model models/my_model.pt` ---
+--- For our project, we developed several images: one for training and one for testing. When running our docker training images a few arguments are needed; As we use Weights & Biases (W&B) an API key for a W&B account is needed, the trained model has to be mounted to get it locally as well, and lastly the local data must be mounted onto the image. A run example of a Docker training image: `docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models -v "$(pwd)"/data:/data --name run1 trainer:latest experiments=exp2`. Link to the training Docker file can be found [here](https://github.com/TheresaDF/MLops_project/blob/main/dockerfiles/train_model.dockerfile). For running the prediction Docker image only the newly trained model has to be mounted onto the image, moreover the model is then passed to the script with the argparse command `--model`. An example run of the image: `docker run --name run_pred1 --rm -v "$(pwd)"/models/my_model.pt:/models/my_model.pt predict:latest --model models/my_model.pt` ---
 
 ### Question 16
 
