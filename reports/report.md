@@ -27,11 +27,8 @@
 >
 > Answer:
 
---- For the main model, a VAE, we wrote a simple CNN ourselves using PyTorch. To compute the loss however, we empployed the third party Structural Similarity Index (SSIM)
-loss function from Kornia, since this loss measures similarity between two given images. We would like to increase similarity as much as possible 
-between our input and output, why this loss seemed fitting. In order to reduce boilerplate code, pytorch_lightning is used for training the model. The use of this
-framework enables several beneficial functionalities, such as early stopping and distributed training. The use of the library Hydra ensured easy management of 
-hyperparameters during training, and enables sweeping for optimal parameters. ---
+--- The main model for cat image generation is a variational autoencoder (VAE). We wrote a simple convolutional neural network (CNN) ourselves using PyTorch. To compute the loss, however, we employed a third-party tool, the Structural Similarity Index (SSIM) loss function from Monai, since this loss is based on a measure of similarity between two given images. We would like to increase similarity as much as possible 
+between our input (a cat image) and output (reconstruction of the image), why this loss seemed fitting. Nevertheless, using the SSIM loss resulted in poor results, so the Mean Squared Error (MSE) loss function from PyTorch was used instead which produced more promising results. Hence, our final model is trained using the MSE loss function. To reduce boilerplate code, `pytorch_lightning` is used for training the model. The use of this framework enables several beneficial functionalities, such as early stopping and distributed training. The use of the library Hydra ensured easy management of hyperparameters during training and enabled sweeping for optimal parameters. ---
 
 ## Coding environment
 
@@ -50,9 +47,7 @@ hyperparameters during training, and enables sweeping for optimal parameters. --
 >
 > Answer:
 
---- The management of dependencies was handled somewhat manually. Every time a new package was used it needed to go in a requirements file. 
-To ensure the list contains all the necessary packages continuous integration is applied to our GitHub repo. In order for this to be more foolproof
-it naturally requires a good amount of test with a good coverage.    ---
+--- The management of dependencies was handled somewhat manually. Every time a new package was used in the project it needed to go into the respective requirements file. Continuous integration for unittesting our main branch was applied to our GitHub repository. These tests checked whether necessary packages in the tested scripts were present in our requirements list. However, these tests do not cover all our scripts and code, hence for this to be more foolproof it naturally requires a more extensive amount of tests with good coverage. Furthermore, our two docker images (one for testing, the other for predictions) include our requirements, thus if these images run without package-related issues, our dependencies concerning training and testing are handled. ---
 
 ### Question 5
 
@@ -67,13 +62,7 @@ it naturally requires a good amount of test with a good coverage.    ---
 > *experiments.*
 > Answer:
 
---- The project was initialized using the cookiecutter template provided in the M6-module of the course. The overall structure can be seen 
-[here](https://github.com/TheresaDF/MLops_project/tree/main). More folders have been added with the use of dvc for data version control, 
-the configuration files for hydra and a folder named "instructions" gathering all commands required to solve a specific task. For example one file
-is called "build_docker" that details the command needed to build an image and run it afterwards. The visualize folder was not really used; our
-project aimed to used a VAE to create more images of cats which means the predict function worked more as an inference script generating images of cats
-by parsing noise through the decoder. There was not the same need for a dedicated prediction script, sa we tracked inputs and their corresponding reconstructions 
-using wandb.   ---
+--- The project was initialized using the cookiecutter template provided in the M6 module of the course. The overall structure can be seen [here](https://github.com/TheresaDF/MLops_project/tree/main). More folders have been added: With the use of DVC for data version control a ".dvc" folder is added, a "conf" folder for the configuration files for Hydra, and an "instructions" folder gathering all commands required to solve a specific task. For example, the file `build_docker.txt` details the commands needed to build a Docker image and run it afterward. The "visualize" folder was not used; Our project aimed to use a VAE to create more images of cats which means the predict function worked more as an inference script generating images of cats by parsing noise through the decoder. There was not the same need for a dedicated prediction script, so we tracked inputs and their corresponding reconstructions using Weights & Biases (wandb). ---
 
 ### Question 6
 
@@ -84,7 +73,7 @@ using wandb.   ---
 >
 > Answer:
 
---- Yes. We aimed to follow the `pep8` conventions i.e. classes are with captial starting letters, while function with small letters where words are separated using underscores. This made it easier to quickly recocnize a function from a class. Furthermore, we have included typing and doc strings to our functions, however, some function descriptions are more thorough. The reason. In Python it is not nessessary to declare the type of variables, therefore it is a good practise to enter the types in the function heads to easier understand the input and output of functions. ---
+--- Yes. We aimed to follow the `pep8` conventions i.e. classes are with capital starting letters, while functions with small letters where words are separated using underscores. This made it easier to quickly recognize a function from a class. Furthermore, we have included typing and doc strings in our functions, however, some function descriptions are more thorough. In Python it is not necessary to declare the type of variables, therefore it is a good practice to enter the types in the function heads to easier understand the input and output of functions. ---
 
 ## Version control
 
@@ -103,7 +92,7 @@ using wandb.   ---
 >
 > Answer:
 
---- In total we have implemented two test files (data and model) each consisting of 3 and 5 assert statements respectively. The data testing included primarily testing of the image shapes and pixel values while the model testing mostly consists of checking the model forward shapes and generation shape. ---
+--- In total, we have implemented two test files (data and model) each consisting of three and five assert statements respectively. The data testing included primarily testing of the image shapes and pixel values while the model testing mostly consisted of checking image and output dimensions. For example, whether the model's forward pass outputted the expected shapes and if the image generation had the correct shape as well. ---
 
 ### Question 8
 
@@ -118,7 +107,7 @@ using wandb.   ---
 >
 > Answer:
 
---- Our total code coverage is at $81\%$, tests have been made for the data and model. No, even with $100\%$ coverage these type of tests cannot account for mathematical or model performance errors. ---
+--- The total code coverage of our code is $81\%$. Unittests have been implemented for testing the processed data and our image generation model. As we implemented `pytorch_lightning` our training script is quite packed in a few lines of code, therefore more difficult to test in the same way. Hence, we chose not to use unittesting on our `train_model.py` script. Even with $100\%$ coverage of our code, it is not a guarantee to trust the code to be $100\%$ error-free. These types of tests cannot account for mathematical errors or errors related to model performance.  ---
 
 ### Question 9
 
@@ -133,7 +122,7 @@ using wandb.   ---
 >
 > Answer:
 
---- Despite the advantages of branches and pull requests, we did not use it in our workflow as this is a small project and our group is rather small as well. The pros of using pull requests is that the main branch is more "protected" so pushing to the main branch has to be checked by one or more people, while branches allow for experimentation without the fear of ruining the already deployed and working model. ---
+--- Despite the advantages of branches and pull requests, we hardly used them in our workflow. The pros of using pull requests are that the main branch is more "protected" as pushing changes to the main branch needs to be checked by one or more other developers. As our group and project are rather small, and we worked on the code together, using pull requests seemed superfluous. Branches allow for experimentation without the fear of ruining the already deployed and working model. We only created a single branch, for experimenting with the third-party (Monai) SSIM loss function in our model. ---
 
 ### Question 10
 
@@ -148,7 +137,7 @@ using wandb.   ---
 >
 > Answer:
 
---- We did make use of DVC in the following way; adding the data on Google Drive using DVC and afterwards linked it to a Google Clould Bucket. We never used other verisons of the data, however in the end this helped us to easily share the data with each other. ---
+--- We did make use of DVC in the following way: Added the data on Google Drive using DVC and afterward linked it to a Google Cloud Bucket which was shared among our group members. This helped us to easily share the data in the group as it could be pulled locally using a single command. However, we never used other versions of the data, and thus did not use DVC for version control, nevertheless, if in the future there is a need for another data version it can be easily managed. ---
 
 ### Question 11
 
