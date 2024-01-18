@@ -6,6 +6,8 @@ pytorch_lightning
 wandb 
 matplotlib 
 torchvision 
-kornia >= 0.7.1
+monai
 pillow
 fastapi
+click 
+markdown
