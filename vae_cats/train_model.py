@@ -18,14 +18,16 @@ def train(cfg) -> None:
     # data path 
     if "gcs" in os.listdir():
         path = "gcs/our_mlops_project_bucket/data/processed/cats.pt"
+        save_path = "gcs/our_project_models/"
     else: 
         path = "data/processed/cats.pt"
+        save_path = "./models"
 
     dataset = DataLoader(torch.load(path).float(), batch_size=hparams.batch_size, shuffle=True, num_workers = 4)
     model = Model(image_channels=data_params.channels, h_dim=hparams.h_dim, z_dim=hparams.z_dim, lr=hparams.lr)
     
     # save best model 
-    checkpoint_callback = ModelCheckpoint(dirpath="./models", monitor="train_loss", mode="min")
+    checkpoint_callback = ModelCheckpoint(dirpath=save_path, monitor="train_loss", mode="min")
 
     # add early stopping
     early_stopping_callback = EarlyStopping(monitor="train_loss", patience=25, verbose=True, mode="min")
@@ -42,6 +44,7 @@ def train(cfg) -> None:
                       accelerator = 'cpu')
     
     trainer.fit(model,dataset)
-    
+
+
 if __name__ == "__main__":
     train() 
