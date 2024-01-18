@@ -245,7 +245,9 @@ using wandb.   ---
 >
 > Answer:
 
---- Lots and lots of print statements. Like a lot. ---
+--- As it is with everything the debugging depended on the person. We have to admit that print statements are the way we usually go about this, and this project was no exception.
+From time to time with scripts taking a longer time to run we used the debugging tool in VS code. We did a profiling of the preprocessing of the data as this was the script 
+whose running time was only succeeded by that of the training script. The training script, however, was implemented using pytorch-lightning so there was not much optimization we could do on our part.   ---
 
 ## Working in the cloud
 
