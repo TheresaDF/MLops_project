@@ -4,7 +4,7 @@
 then run 
 gcloud ai custom-jobs create \
     --region=europe-west1 \
-    --display-name=test-run \
+    --display-name=train1 \
     --config=config.yaml
 
 

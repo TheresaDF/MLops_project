@@ -5,3 +5,4 @@ workerPoolSpecs:
     replicaCount: 1
     containerSpec:
         imageUri: gcr.io/adroit-gravity-410709/training
+        

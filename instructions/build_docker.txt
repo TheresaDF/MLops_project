@@ -22,7 +22,7 @@ docker run --name <run-name> <docker-image-name>:latest
 
 # Examples 
 # Trainer example: a succesfull run for a training image looked like
-docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models --name <run-name> trainer:latest
+docker run -e WANDB_API_KEY=<key> -v "$(pwd)"/models:/models -v "$(pwd)"/data:/data --name <run-name> trainer:latest
 
 # Testing example: a succesfull run for a prediction image looked like
 docker run --name <run-name> --rm -v "$(pwd)"/models/epoch=18-step=513.ckpt:/models/epoch=18-step=513.ckpt predict:latest --model models/epoch=18-step=513.ckpt
