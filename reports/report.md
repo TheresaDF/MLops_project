@@ -204,7 +204,14 @@ between our input (a cat image) and output (reconstruction of the image), why th
 >
 > Answer:
 
---- question 14 fill here ---
+--- 
+As seen in the first image we have a steadily decreasing training loss curve. If the loss did not decrease during 10 steps the learning rate decreases. 
+If the loss still did not decrease after 25 steps then the training is terminated. 
+![Losses and learning rate](figures/wandb_loss.png)
+
+During training we also tracked the input images and their respective outputs as seen in the following two images. 
+![Input](figures/wandb_input.png)
+![Reconstructions](figures/wandb_output.png) ---
 
 ### Question 15
 
@@ -293,7 +300,9 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- question 20 fill here ---
+---  
+![Content of container registry](figures/container_registry.png)
+![Training docker images](figures/container_registry_trainer.png) ---
 
 ### Question 21
 
@@ -302,7 +311,8 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- question 21 fill here ---
+--- 
+![Cloud build history](figures/cloud_build_history.png) ---
 
 ### Question 22
 
