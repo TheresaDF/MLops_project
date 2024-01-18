@@ -240,9 +240,7 @@ During training, we also tracked the input images and their respective reconstru
 >
 > Answer:
 
---- As it is with everything the debugging depended on the person. We have to admit that print statements are the way we usually go about this, and this project was no exception.
-From time to time with scripts taking a longer time to run we used the debugging tool in VS code. We did a profiling of the preprocessing of the data as this was the script 
-whose running time was only succeeded by that of the training script. The training script, however, was implemented using pytorch-lightning so there was not much optimization we could do on our part. The profiling did not make that much of a difference as we chose data already preprocessed, why our script only had to read, resize and save the images.  ---
+--- As it is with everything the debugging depended on the person. We have to admit that print statements are the way we usually go about this, and this project was no exception. From time to time with scripts taking a longer time to run we used the debugging tool in VS code. We did a profiling of the preprocessing process of the raw data as this was the script whose run time was only succeeded by that of the training script. The training script, however, was implemented using `pytorch-lightning` so there was not much optimization we could do on our part. The profiling did not make that much of a difference as we chose data already preprocessed, why our script only had to read, resize, and save the images. ---
 
 ## Working in the cloud
 
@@ -259,11 +257,8 @@ whose running time was only succeeded by that of the training script. The traini
 >
 > Answer:
 
---- We used several GCP services in our project including bucket, bucket, cloud functions, triggers and artifacts registry. 
-The bucket is used for storing data. Several people can have access and they can be linked with Google Drive and pulled and push with dvc. 
-Cloud triggers are used to enable continuous integration. Depending on the configuration the trigger listens to incoming events and automatically starts building. 
-In this project the triggers are used to automatically build docker images for training and prediction. The resulting images are then stored in the aetifacts registry. 
-Cloud functions is a serverless way of deploying ones model. In this project it is used to make a user able to generate a 8 $\times$ 8 grid of cats images.  ---
+--- We used several GCP services in our project including Bucket, Cloud Function, Trigger, and Artifacts Registry. The Bucket was used for storing our data. Several people can gain access to it and it can be linked with Google Drive and pulled and pushed using DVC. 
+Cloud Triggers are used to enable continuous integration. Depending on the configuration the trigger listens to incoming events and automatically starts building. In this project, the triggers are used to automatically build our docker images for training and prediction each time changes are pushed to the main branch. The resulting images are then stored in the Artifacts Registry, these images can afterward be pulled locally as well. Cloud Functions is a serverless way of deploying one's model. In this project, it is used to make a user able to generate an 8 $\times$ 8 grid of cat images. ---
 
 ### Question 18
 
@@ -278,8 +273,7 @@ Cloud functions is a serverless way of deploying ones model. In this project it 
 >
 > Answer:
 
---- We used the compute engines when training the model using vertex AI. This service creates virtual machines and deletes them afterwards when they are no longer in use. 
-As some group members burnet through their credits quite quickly due to not turining off their compute engines, this is a very nice and appreciated feature.  ---
+--- We used the Compute Engines when training the model using vertex AI. This service creates virtual machines and deletes them afterward when they are no longer in use. We used the instances with the following hardware "n1-highmem-2" (CPU) and started the training using our custom training Docker images. Since our model is a rather small CNN it was realistic to train on a CPU, which is the cheaper option compared with training on a GPU. Except for the possibility of forgetting to turn off one's Computing Engines, and thus consequently burning through all one's credits rather quickly, this is a very nice and appreciated feature. ---
 
 ### Question 19
 
