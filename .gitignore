@@ -6,6 +6,7 @@ data/*
 wandb/
 models/*
 outputs/*
+vertex_AI_config.yaml
 
 # test cache
 manual_test/
