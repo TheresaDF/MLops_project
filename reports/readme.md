@@ -371,7 +371,14 @@ Cloud Triggers are used to enable continuous integration. Depending on the confi
 >
 > Answer:
 
---- question 25 fill here ---
+--- 
+The overall architecture can be seen in the following figure: 
+![architecture](figures/architecture.png) 
+At the core we have `PyTorch`, as this is what we used to implement the model. To reduce boilterplate `PyTorch_Lightning` is used during training, which enables distributed training and early stopping. Logging the experiments was done with the use of Weightd and Biases, and managed by the Python library Hydra. These frameworks also work great with `PyTorch_Lightning`. For managing Python environments we employed Conda. Our framework was wrapped into a Docker image, including all the necessary packages, which then easily can run our application on any other devices. In terms of code structure, the entire project was made using a CookieCutter template posted to GitHub. Version control of the code is enabled by using GitHub. Clould Build enabled trigger workflow of Docker images for training and prediction to be made automaically each time changes are puched to the main branch. In addition GitHub Actions are linked to our unittests, which likewise tests new implementations when pushed to the main branch. Our data was firstly stored locally, then DVC was used to save it in a Google Drive folder, finally the Google Drive was linked with a GCP Bucket using DVC to have the data stored in a Bucket instead. 
+Vertex AI are able to run the docker images built using the trigger workflow and the data from our bucket. Using another bucket the resulting trained models are saved. Those models can
+then be utilized by cloud functions for deployment. 
+
+---
 
 ### Question 26
 
@@ -407,4 +414,10 @@ We also encountered issues with GitHub actions as our tests were queued for 48 h
 >
 > Answer:
 
---- question 27 fill here ---
+--- 
+s194644: deployment, fast_api, monitoring, training including lightning, model implementation, logging to wandb
+s194324: docker, model implementation, data version control, snacks, hydra configurations, unittest, trigger workflow
+s194329: vertex AI, make_dataset, docker, model implementation, data version control, snacks, profiling, trigger workflow, distributed dataloading and training  
+
+Generally we worked together a lot. We have been sitting together everyday, asking each other for help, so we almost all contributed to each part of the project. 
+ ---
