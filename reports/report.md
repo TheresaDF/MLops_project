@@ -328,7 +328,7 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- question 22 fill here ---
+--- At first we created a FastApi application that could generate images using our VAE locally. This could then be utilises when we had to deploy our model in the cloud, since it follows somewhat the same structure. We deployed the model in the cloud using Cloud Functions. Cloud Run could also be applied to deploy, but since our model is rather small and not complex, it was easy to do using Cloud Function. The deployed model does not take any input from the user, since it generates new images. Therefore to use the deployed model, it can be invoked simply by entering the webpage https://europe-west1-dtumlops-410911.cloudfunctions.net/cats_mlops. Every time the user updates the page, new images will be generated and plotted. ---
 
 ### Question 23
 
@@ -343,7 +343,7 @@ As some group members burnet through their credits quite quickly due to not turi
 >
 > Answer:
 
---- question 23 fill here ---
+--- Since our model does not take any input and does not measure accuracy, data drifting and performance monitoring is rather difficult to perform. The only thing that we could monitor is system telemetry, where we look at the standard metrics that Google Cloud provides. Furthermore we created a service level objective (SLO), that measures the latency, and how many percentages that are higher than a threshold we have set. Monitoring in general can help longevity by performing data drifting, which ensures the developers, whether the input data follows the same distribution as the data the model are trained upon. If not, the model might have to be retrained to fit the new distribution better. Moreover the monitoring can set up alarms that warns the developers, if the model performance begins to be lower than a certain threshold. It can also check if the system are getting increased counts, or getting a higher latency and alarm if it is becoming a problem. This can help to maintain the deployed model and the user experience.---
 
 ### Question 24
 
